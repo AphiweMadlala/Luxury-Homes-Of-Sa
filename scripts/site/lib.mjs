@@ -16,6 +16,11 @@ export function rand(n) {
   const cents = Math.round((n % 1) * 100);
   return "R" + group(n) + (cents ? "." + String(cents).padStart(2, "0") : "");
 }
+export const randShort = (n) => {
+  if (n == null) return null;
+  const m = n / 1e6;
+  return m >= 1 ? `R${(Math.round(m * 10) / 10).toString().replace(/\.0$/, "")}m` : `R${Math.round(n / 1000)}k`;
+};
 export const priceLabel = (p) => (p.priceZAR ? rand(p.priceZAR) : "Price on request");
 export const num = (n) => (n == null ? null : Number.isInteger(n) ? String(n) : String(n));
 export const m2 = (n) => (n == null ? null : group(n) + " m²");
@@ -23,6 +28,10 @@ export const fmtDate = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(
 
 export const place = (p) => [p.estate || p.suburb, p.city].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(", ");
 export const placeShort = (p) => p.estate || p.suburb || p.city;
+
+// ---- copy-to-clipboard for email addresses (people without a configured mail app) ----
+export const copyEmail = (email) =>
+  `<button class="copy" type="button" data-copy="${email}" aria-label="Copy email address ${email}"><span data-copy-label>Copy email</span></button>`;
 
 // ---- icons: Phosphor (regular), inlined at build time ----
 const iconCache = {};
@@ -65,7 +74,7 @@ export function card(p, media, { sizes = "(min-width: 1024px) 30vw, (min-width: 
   return `<article class="card">
   <div class="card__img">${picture(p, media, 0, { sizes, eager, alt: `${p.title}, ${place(p)}` })}${badge && p.status !== "for-sale" ? statusBadge(p) : ""}</div>
   <div class="card__body">
-    <p class="meta">${esc(place(p))}</p>
+    <p class="card__place">${esc(place(p))}</p>
     <h3 class="card__title"><a href="${u(`properties/${p.slug}/`)}">${esc(p.title)}</a></h3>
     <div class="card__row"><span class="price card__price">${esc(priceLabel(p))}</span><ul class="specs">${specs}</ul></div>
   </div>
@@ -76,7 +85,7 @@ export function card(p, media, { sizes = "(min-width: 1024px) 30vw, (min-width: 
 const NAV = [
   ["properties/", "Properties"],
   ["locations/", "Locations"],
-  ["list-with-us/", "List with us"],
+  ["collaborate/", "Collaborate"],
   ["about/", "About"],
 ];
 
@@ -119,18 +128,19 @@ ${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script
   <ul>${nav}<li><a href="${u("contact/")}">Enquire</a></li></ul>
   <p class="meta"><a class="link" href="mailto:${cfg.business.email}">${cfg.business.email}</a></p>
 </div>
+<p class="sr-only" aria-live="polite" data-copy-status></p>
 <main id="main">
 ${body}
 </main>
 <footer class="footer">
   <div class="wrap">
     <div class="footer__grid">
-      <div><a class="wordmark" href="${u("")}">Luxury Homes of <span class="wordmark__sa">SA</span></a><p class="note" style="margin-top:14px;max-width:34ch">Notable homes for sale across South Africa, as featured on Instagram.</p></div>
+      <div><a class="wordmark" href="${u("")}">Luxury Homes of <span class="wordmark__sa">SA</span></a><p class="note" style="margin-top:14px;max-width:34ch">A national property publication featuring notable homes for sale across South Africa.</p></div>
       <div><p class="label">Explore</p><ul><li><a href="${u("properties/")}">Properties</a></li><li><a href="${u("locations/")}">Locations</a></li></ul></div>
-      <div><p class="label">Company</p><ul><li><a href="${u("about/")}">About</a></li><li><a href="${u("list-with-us/")}">List with us</a></li><li><a href="${u("contact/")}">Enquire</a></li></ul></div>
-      <div><p class="label">Contact</p><ul><li><a href="mailto:${cfg.business.email}">${cfg.business.email}</a></li><li><a href="${cfg.business.instagramUrl}" rel="noopener">Instagram @${cfg.business.instagramHandle}</a></li></ul></div>
+      <div><p class="label">Company</p><ul><li><a href="${u("about/")}">About</a></li><li><a href="${u("collaborate/")}">Collaborate</a></li><li><a href="${u("contact/")}">Enquire</a></li></ul></div>
+      <div><p class="label">Contact</p><ul><li><a href="mailto:${cfg.business.email}">${cfg.business.email}</a></li><li>${copyEmail(cfg.business.email)}</li><li><a href="${cfg.business.instagramUrl}" rel="noopener">Instagram @${cfg.business.instagramHandle}</a></li></ul></div>
     </div>
-    <p class="footer__note">Listings are marketed by the estate agents and agencies credited on each property. Luxury Homes of SA features these homes and does not hold sales mandates. Details are as published by the marketing agent and may change; confirm all information with the agent before making an offer.</p>
+    <p class="footer__note">Luxury Homes of SA is a property publication, not an estate agency, and does not hold sales mandates. Homes are marketed by the agents and agencies who list them. Details are as published by the marketing agent and may change; confirm them with the agent before making an offer.</p>
   </div>
 </footer>
 <script src="${u("js/site.js")}" defer></script>

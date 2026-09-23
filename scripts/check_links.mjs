@@ -11,7 +11,7 @@ for (const page of pages) {
   const refs = [...html.matchAll(/(?:href|src|poster)="([^"]+)"/g)].map((m) => m[1])
     .concat([...html.matchAll(/srcset="([^"]+)"/g)].flatMap((m) => m[1].split(",").map((s) => s.trim().split(" ")[0])));
   for (const r of refs) {
-    if (/^(mailto|tel):/.test(r)) continue;
+    if (/^(mailto|tel|data):/.test(r)) continue;
     if (/^https?:/.test(r)) { ext.add(r.split("/").slice(0, 3).join("/")); continue; }
     if (r.startsWith("#")) { if (r.length > 1 && !html.includes(`id="${r.slice(1)}"`)) bad.push(`${page}: missing anchor ${r}`); continue; }
     if (!r.startsWith(cfg.BASE_PATH)) { bad.push(`${page}: not base-prefixed ${r}`); continue; }

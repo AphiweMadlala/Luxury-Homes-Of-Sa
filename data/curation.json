@@ -1622,20 +1622,20 @@
     "ballito-sea-view-apartment": "A beautifully presented 2-bedroom apartment with 2 bathrooms, partial sea views and a private balcony. Positioned close to Ballito’s beaches, restaurants and shopping, with secure parking."
   },
   "homepage": {
-    "_about": "Editorial selections for the home page. Only for-sale properties may be used.",
+    "_about": "Editorial selections for the home page. Only for-sale properties may be used. dossierFrames are gallery indexes chosen by eye (The Coves: hangar with aircraft, pool terrace). Markets are generated from inventory, not listed here.",
     "hero": "khyber-rock-architectural-residence",
     "curated": [
       "fresnaye-view-residence",
       "llandudno-elevated-residence",
-      "zululami-ocean-view-residence"
+      "zululami-ocean-view-residence",
+      "val-de-vie-reserve-residence",
+      "blair-atholl-fairway-home"
     ],
     "dossier": "the-coves-aviation-residence",
     "band": "pinnacle-point-fairway-residence",
-    "register": {
-      "Gauteng": "steyn-city-entertainers-home",
-      "Western Cape": "llandudno-elevated-residence",
-      "KwaZulu-Natal": "zimbali-ilanga-villa",
-      "North West": "the-islands-waterfront-residence"
-    }
+    "dossierFrames": [
+      4,
+      13
+    ]
   }
 }

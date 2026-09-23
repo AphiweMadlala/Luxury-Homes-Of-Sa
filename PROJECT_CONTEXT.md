@@ -68,21 +68,38 @@ Only its principles were taken: curation over portal density, large photography,
 |---|---|
 | Dark ink/navy + cream + gold | Light plaster ground, charcoal ink, face-brick accent |
 | Fraunces + Jost | Archivo variable + IBM Plex Mono |
-| Full-bleed cinematic hero with search bar | Asymmetric split hero, captioned with the pictured home's price |
+| Full-bleed cinematic hero with search bar | Asymmetric split hero with a "Pictured" particulars block (location, specs, asking price) |
 | Pill buttons, wide-tracked uppercase labels, "N° 02" numbered sections | Square buttons, sentence case, no section numbering |
-| Manifesto section, Leaflet map | Factual statement with real figures, typographic location register |
+| Manifesto section, Leaflet map | Factual statement with real figures, data-driven "Explore markets" photo tiles plus a typographic location register |
 | Rentals, guests, "stay" | Asking price, dated multi-currency line, viewings, bond illustration |
 
 ## Proposal configuration
 
 `site.config.json` holds `BASE_PATH`, `SITE_URL`, `PROPOSAL_MODE` and the business contact defaults. With `PROPOSAL_MODE: true`, every page carries `noindex, nofollow`, robots.txt disallows everything and no sitemap is generated. No proposal notice is visible to visitors.
 
+## Polish pass (customer-facing presentation)
+
+A design, UX and copy pass on the existing build. The dataset, status rules, provenance and validation pipeline were not changed, and Instagram was not re-scraped.
+
+- **Customer-facing provenance simplified.** Property pages now show a concise attribution in the aside: "Marketed by {agent} / {agency} / Featured by Luxury Homes of SA", or "Featured by Luxury Homes of SA / Enquiries are connected with the agent marketing the home". The mandate note, reference, Instagram post dates and any confirmed agency listing link sit in a collapsed **Listing information** disclosure at the end of the page. The global not-an-agency disclaimer lives in the footer. All sourcing remains in `data/` and `reports/`. Accuracy is unchanged: nothing implies LHOSA holds a mandate.
+- **Collaboration terminology.** "List with us" implied accepting mandates. It is now **Collaborate** in the nav and footer, and **Feature a property** in CTAs, echoing the verified bio line "Let's Collaborate". The page moved to `/collaborate/`, aimed at agents, developers and property marketers; `/list-with-us/` is a redirect so existing links keep working. It promises no results, reach, photography or valuations.
+- **Location discovery.** A photo-led **Explore markets** layer, generated from current inventory (cities with at least two homes for sale; image, count and asking-price range), appears on the home page and at the top of Locations, above the unchanged province → city → estate register.
+- **Collection price range.** The fixed price dropdowns were replaced by typed Minimum/Maximum inputs plus a two-handle logarithmic slider bounded by the dataset (R500k to R175m). Input parsing is tolerant, values are clamped, the minimum can never exceed the maximum, slider values are snapped, ARIA value text is given in rand, and state is kept in the URL (`pmin`/`pmax`).
+- **Active filter UX.** Removable square chips under the toolbar, with Clear all.
+- **Search label** now matches the searched fields: area, estate, property, agent or reference.
+- **Enquiry resilience.** "Copy email" (Clipboard API with a fallback and an announced confirmation) sits next to every email address. For uncredited homes, email and Instagram message are equally prominent; credited agents remain the primary contact.
+- **Visual polish.**
+  - Home: a 5-card curated rhythm, a positioning statement with real figures and a 3-image dossier spread.
+  - Property: a five-frame mosaic, and the first viewport answers what, where, how much, the specs and who markets it. The editorial introduction is separated from the particulars. A desktop photo sequence replaces the repeated all-photos grid, so mobile has only one gallery.
+  - About, Collaborate and Contact: editorial, image-led pages. Contact splits buyers from agents.
+  - Mono type is reduced to figures, labels and references.
+
 ## Known limitations
 
 - 67 of 104 properties are "availability to be confirmed". Only 2 listings were confirmed live externally, because Firecrawl was unauthenticated and Property24 returned 503.
 - Photography comes from Instagram at 1080 px maximum. The client should supply originals for large screens.
 - 14 properties are reel-only (one cover frame plus film).
-- The enquiry forms compose an email in the visitor's mail app; there is no backend.
+- The enquiry forms compose an email in the visitor's mail app; there is no backend. A copy-email fallback is provided for visitors without a mail app.
 - Permission to republish agency photography and particulars is unknown and must be confirmed with each agent.
 - The bond calculator is illustrative, with an editable example rate (not a quoted or current prime rate).
 

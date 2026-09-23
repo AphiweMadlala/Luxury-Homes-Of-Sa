@@ -51,6 +51,35 @@
     reveals.forEach((r) => io.observe(r));
   } else reveals.forEach((r) => r.classList.add("is-in"));
 
+  // Copy email: for visitors without a configured mail app. Clipboard API with a textarea fallback.
+  const status = document.querySelector("[data-copy-status]");
+  const copyText = async (text) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); return true; }
+    } catch (e) { /* fall through */ }
+    const ta = document.createElement("textarea");
+    ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    ta.remove();
+    return ok;
+  };
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("[data-copy]");
+    if (!btn) return;
+    const label = btn.querySelector("[data-copy-label]");
+    const ok = await copyText(btn.dataset.copy);
+    const msg = ok ? "Email copied" : `Copy failed. The address is ${btn.dataset.copy}`;
+    if (status) { status.textContent = ""; requestAnimationFrame(() => (status.textContent = msg)); }
+    if (label) {
+      label.textContent = ok ? "Copied" : "Select and copy";
+      btn.classList.toggle("is-done", ok);
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { label.textContent = "Copy email"; btn.classList.remove("is-done"); }, 2200);
+    }
+  });
+
   // Enquiry forms compose an email in the visitor's own mail app. No data is sent anywhere by the site.
   document.querySelectorAll("form[data-enquiry]").forEach((form) => {
     const err = form.querySelector("[data-error]");
