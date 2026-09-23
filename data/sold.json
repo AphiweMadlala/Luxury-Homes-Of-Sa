@@ -1,0 +1,33 @@
+[
+  {
+    "slug": "bryanston-sold-2026",
+    "status": "sold",
+    "evidence": "Agent caption (Fran La Reservee, 7 Jun 2026): 'The property has since been sold and is no longer available'. No price or specifications published.",
+    "province": "Gauteng",
+    "city": "Johannesburg",
+    "area": "Sandton",
+    "suburb": "Bryanston",
+    "estate": null,
+    "instagramPosts": [
+      "https://www.instagram.com/p/DZRlW8wDZw7/",
+      "https://www.instagram.com/p/DZMohVbtqs1/"
+    ],
+    "agent": "fran-la-reservee",
+    "mediaSourcePost": "DZRlW8wDZw7"
+  },
+  {
+    "slug": "eye-of-africa-sold-2026",
+    "status": "sold",
+    "evidence": "Agent reel (neo_your_fav_realtor, 26 Mar 2026): 'Congratulations to the seller and buyer for a seamless transaction'. No price or specifications published.",
+    "province": "Gauteng",
+    "city": "Johannesburg",
+    "area": "Johannesburg South",
+    "suburb": null,
+    "estate": "Eye of Africa Golf & Residential Estate",
+    "instagramPosts": [
+      "https://www.instagram.com/p/DWWg5WaDPK-/"
+    ],
+    "agent": "neo-your-fav-realtor",
+    "mediaSourcePost": "DWWg5WaDPK-"
+  }
+]

@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "midstream-ridge-trophy-home",
+    "field": "priceZAR",
+    "values": [
+      [
+        33999999,
+        "DI6gOiOMiiZ",
+        "2025-04-26"
+      ],
+      [
+        33999000,
+        "Dcp86krom-q",
+        "2026-08-30"
+      ]
+    ],
+    "chosen": 33999000
+  },
+  {
+    "slug": "eye-of-africa-single-storey-home",
+    "field": "priceZAR",
+    "values": [
+      [
+        5100000,
+        "DVyoYx0jML1",
+        "2026-03-12"
+      ],
+      [
+        4990000,
+        "Da2TfOsR4yd",
+        "2026-07-16"
+      ],
+      [
+        4800000,
+        "DbsgbqrMPXU",
+        "2026-08-06"
+      ]
+    ],
+    "chosen": 4800000
+  },
+  {
+    "slug": "eye-of-africa-double-storey-home",
+    "field": "priceZAR",
+    "values": [
+      [
+        7500000,
+        "DV_fJmojD-V",
+        "2026-03-17"
+      ],
+      [
+        7990000,
+        "DWHKsmYDAQj",
+        "2026-03-20"
+      ]
+    ],
+    "chosen": 7990000
+  }
+]

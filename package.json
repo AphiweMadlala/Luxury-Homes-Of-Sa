@@ -1,0 +1,16 @@
+{
+  "name": "luxury-homes-of-sa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "hash": "node scripts/hash_media.mjs",
+    "images": "node scripts/build_images.mjs",
+    "validate": "node scripts/validate.mjs",
+    "build": "node scripts/validate.mjs && node scripts/build.mjs",
+    "serve": "npx --yes http-server dist -p 8080 -c-1 -s"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "sharp": "^0.34.0"
+  }
+}

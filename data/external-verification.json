@@ -1,0 +1,28 @@
+{
+  "the-coves-aviation-residence": {
+    "finding": "listed",
+    "checkedAt": "2026-09-23",
+    "method": "WebFetch of agency listing page",
+    "url": "https://www.seeff.com/results/residential/for-sale/hartbeespoort/the-coves/house/3046119/14-aero-cove/",
+    "agency": "Seeff Hartbeespoort & Brits",
+    "matched": "R15,862,500; 5 bed; 5 bath; floor 970 m²; erf 2,638 m²; hangar + private landing strip — identical to LHOSA post Ddn2uNkCAkG",
+    "notes": "Search index also shows the same home on Chas Everitt, Harcourts and ERA (multi-listed). Agent names are on the source page and deliberately not copied into this dataset."
+  },
+  "southdowns-family-home": {
+    "finding": "listed",
+    "checkedAt": "2026-09-23",
+    "method": "WebFetch of Private Property area results page",
+    "url": "https://www.privateproperty.co.za/for-sale/gauteng/centurion/centurion-east/southdowns-estate/2892-40-club-crescent/T4501703",
+    "agency": null,
+    "matched": "R9,950,000; 5 bed; 5.5 bath; 4 garages; status label 'Active' — matches price and bedrooms of DbdTYGhDBVo",
+    "notes": "Bathroom count on the portal (5.5) is not copied into the dataset: the Instagram source only states '5 En-suite Bedrooms & Bathrooms'."
+  },
+  "_leads_unconfirmed": {
+    "constantia-mountain-view-residence": "Web search index (2026-09-23) summarises a matching R32,500,000 5-bed Constantia listing as 'Under Offer'. Source page not retrieved; status left as unknown.",
+    "southdowns-architectural-home": "Web search index shows a matching R14,500,000 3-bed Southdowns listing (furnished option R15,100,000) on property.mg.co.za; page not confirmed live.",
+    "pearl-valley-grand-residence": "Search index describes a matching R45,000,000 5-bed, 1,261 m² Pearl Valley home on an exclusive sole mandate; the Property24 page it pointed to was a different house (R36.9M). Not confirmed.",
+    "val-de-vie-cul-de-sac-residence": "Search index describes a matching R42,000,000 5-bed double-stand home on an 'exclusive dual mandate' (erf 1,855 m² matches). Not confirmed live.",
+    "bedfordview-entertainers-home": "Search index associates a matching R12,450,000 4-bed Bedfordview home (hydro pool) with Pam Golding Properties, while the Instagram caption credits Jade Aglioti of Live Real Estate. Conflict recorded; caption attribution retained.",
+    "st-andrews-skyline-cluster": "Search index shows a matching R6,990,000 4-bed, 524 m² St Andrews townhouse on Property24 and Pompa Realty. Not confirmed live."
+  }
+}

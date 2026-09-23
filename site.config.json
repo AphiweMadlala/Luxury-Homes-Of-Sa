@@ -1,0 +1,17 @@
+{
+  "_about": "Single source of truth for deployment and contact defaults. BASE_PATH must start and end with '/'. When PROPOSAL_MODE is true every page carries <meta name=robots content='noindex, nofollow'> and robots.txt disallows all; nothing proposal-related is shown to visitors.",
+  "BASE_PATH": "/Luxury-Homes-Of-Sa/",
+  "SITE_URL": "https://aphiwemadlala.github.io/Luxury-Homes-Of-Sa",
+  "PROPOSAL_MODE": true,
+  "SITE_NAME": "Luxury Homes of SA",
+  "business": {
+    "name": "Luxury Homes of SA",
+    "instagramHandle": "luxuryhomesofsa",
+    "instagramUrl": "https://www.instagram.com/luxuryhomesofsa/",
+    "email": "luxuryhomesofsa@gmail.com",
+    "phone": null,
+    "whatsapp": null,
+    "followers": 41131,
+    "followersRetrievedAt": "2026-09-23"
+  }
+}

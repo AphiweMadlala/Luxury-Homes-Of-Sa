@@ -1,0 +1,1641 @@
+{
+  "_about": "Hand-reviewed mapping of Instagram posts to canonical properties. Merges were confirmed visually (contact sheets) and/or by identical price+specs+agent. Every field here is either a location classification or an explicit, sourced correction; nothing here invents a property fact. See reports/listing-reconciliation.md.",
+  "recentCutoff": "2026-07-25",
+  "verifiedAt": "2026-09-23",
+  "locations": {
+    "the-coves": {
+      "province": "North West",
+      "city": "Hartbeespoort",
+      "area": "Hartbeespoort",
+      "suburb": "The Coves",
+      "estate": "The Coves Estate"
+    },
+    "the-islands": {
+      "province": "North West",
+      "city": "Hartbeespoort",
+      "area": "Hartbeespoort",
+      "suburb": null,
+      "estate": "The Islands Estate"
+    },
+    "fresnaye": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Atlantic Seaboard",
+      "suburb": "Fresnaye",
+      "estate": null
+    },
+    "llandudno": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Atlantic Seaboard",
+      "suburb": "Llandudno",
+      "estate": null
+    },
+    "clifton": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Atlantic Seaboard",
+      "suburb": "Clifton",
+      "estate": null
+    },
+    "camps-bay": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Atlantic Seaboard",
+      "suburb": "Camps Bay",
+      "estate": null
+    },
+    "bantry-bay": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Atlantic Seaboard",
+      "suburb": "Bantry Bay",
+      "estate": null
+    },
+    "green-point": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Atlantic Seaboard",
+      "suburb": "Green Point",
+      "estate": null
+    },
+    "constantia": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Southern Suburbs",
+      "suburb": "Constantia",
+      "estate": null
+    },
+    "stonehurst": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Southern Suburbs",
+      "suburb": null,
+      "estate": "Stonehurst Mountain Estate"
+    },
+    "baronetcy": {
+      "province": "Western Cape",
+      "city": "Cape Town",
+      "area": "Northern Suburbs",
+      "suburb": null,
+      "estate": "Baronetcy Estate"
+    },
+    "val-de-vie": {
+      "province": "Western Cape",
+      "city": "Paarl",
+      "area": "Cape Winelands",
+      "suburb": null,
+      "estate": "Val de Vie Estate"
+    },
+    "pearl-valley": {
+      "province": "Western Cape",
+      "city": "Paarl",
+      "area": "Cape Winelands",
+      "suburb": null,
+      "estate": "Pearl Valley Golf Estate"
+    },
+    "pinnacle-point": {
+      "province": "Western Cape",
+      "city": "Mossel Bay",
+      "area": "Garden Route",
+      "suburb": null,
+      "estate": "Pinnacle Point Golf Estate"
+    },
+    "oubaai": {
+      "province": "Western Cape",
+      "city": "George",
+      "area": "Garden Route",
+      "suburb": null,
+      "estate": "Oubaai Golf Estate"
+    },
+    "simola": {
+      "province": "Western Cape",
+      "city": "Knysna",
+      "area": "Garden Route",
+      "suburb": null,
+      "estate": "Simola Golf & Country Estate"
+    },
+    "st-francis-links": {
+      "province": "Eastern Cape",
+      "city": "St Francis Bay",
+      "area": "Kouga",
+      "suburb": null,
+      "estate": "St Francis Links"
+    },
+    "zimbali": {
+      "province": "KwaZulu-Natal",
+      "city": "Ballito",
+      "area": "North Coast",
+      "suburb": null,
+      "estate": "Zimbali Coastal Estate"
+    },
+    "zululami": {
+      "province": "KwaZulu-Natal",
+      "city": "Ballito",
+      "area": "North Coast",
+      "suburb": "Sheffield Beach",
+      "estate": "Zululami Luxury Coastal Estate"
+    },
+    "elaleni": {
+      "province": "KwaZulu-Natal",
+      "city": "Ballito",
+      "area": "North Coast",
+      "suburb": null,
+      "estate": "Elaleni Coastal Forest Estate"
+    },
+    "palm-lakes": {
+      "province": "KwaZulu-Natal",
+      "city": "Ballito",
+      "area": "North Coast",
+      "suburb": null,
+      "estate": "Palm Lakes Estate"
+    },
+    "seaton": {
+      "province": "KwaZulu-Natal",
+      "city": "Ballito",
+      "area": "North Coast",
+      "suburb": null,
+      "estate": "Seaton Estate"
+    },
+    "ballito": {
+      "province": "KwaZulu-Natal",
+      "city": "Ballito",
+      "area": "North Coast",
+      "suburb": "Ballito",
+      "estate": null
+    },
+    "izinga": {
+      "province": "KwaZulu-Natal",
+      "city": "Umhlanga",
+      "area": "Umhlanga",
+      "suburb": "Izinga Park",
+      "estate": null
+    },
+    "ridgeside": {
+      "province": "KwaZulu-Natal",
+      "city": "Umhlanga",
+      "area": "Umhlanga",
+      "suburb": "Umhlanga Ridge",
+      "estate": "Ridgeside"
+    },
+    "sandown": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Sandown",
+      "estate": null
+    },
+    "strathavon": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Strathavon",
+      "estate": null
+    },
+    "bryanston": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Bryanston",
+      "estate": null
+    },
+    "morningside": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Morningside",
+      "estate": null
+    },
+    "hyde-park": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Hyde Park",
+      "estate": null
+    },
+    "atholl": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Atholl",
+      "estate": null
+    },
+    "duxberry": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Duxberry",
+      "estate": null
+    },
+    "khyber-rock": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Sandton",
+      "suburb": "Khyber Rock",
+      "estate": null
+    },
+    "helderfontein": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Fourways",
+      "suburb": null,
+      "estate": "Helderfontein Estate"
+    },
+    "eye-of-africa": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Johannesburg South",
+      "suburb": null,
+      "estate": "Eye of Africa Golf & Residential Estate"
+    },
+    "oakdene": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Johannesburg South",
+      "suburb": "Oakdene",
+      "estate": null
+    },
+    "thaba": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": "Johannesburg South",
+      "suburb": null,
+      "estate": "Thaba Eco Village"
+    },
+    "eagle-canyon": {
+      "province": "Gauteng",
+      "city": "Roodepoort",
+      "area": "West Rand",
+      "suburb": null,
+      "estate": "Eagle Canyon Golf Estate"
+    },
+    "steyn-city": {
+      "province": "Gauteng",
+      "city": "Midrand",
+      "area": "Midrand",
+      "suburb": null,
+      "estate": "Steyn City"
+    },
+    "waterfall-country": {
+      "province": "Gauteng",
+      "city": "Midrand",
+      "area": "Waterfall",
+      "suburb": null,
+      "estate": "Waterfall Country Estate"
+    },
+    "waterfall-equestrian": {
+      "province": "Gauteng",
+      "city": "Midrand",
+      "area": "Waterfall",
+      "suburb": null,
+      "estate": "Waterfall Equestrian Estate"
+    },
+    "lilyfield": {
+      "province": "Gauteng",
+      "city": "Midrand",
+      "area": "Midrand",
+      "suburb": "Noordwyk",
+      "estate": "Lilyfield"
+    },
+    "la-como": {
+      "province": "Gauteng",
+      "city": "Johannesburg",
+      "area": null,
+      "suburb": null,
+      "estate": "La Como Lifestyle Estate"
+    },
+    "midstream-ridge": {
+      "province": "Gauteng",
+      "city": "Centurion",
+      "area": "Midstream",
+      "suburb": null,
+      "estate": "Midstream Ridge Estate"
+    },
+    "midstream-heights": {
+      "province": "Gauteng",
+      "city": "Centurion",
+      "area": "Midstream",
+      "suburb": null,
+      "estate": "Midstream Heights"
+    },
+    "midstream": {
+      "province": "Gauteng",
+      "city": "Centurion",
+      "area": "Midstream",
+      "suburb": null,
+      "estate": "Midstream Estate"
+    },
+    "southdowns": {
+      "province": "Gauteng",
+      "city": "Centurion",
+      "area": "Irene",
+      "suburb": null,
+      "estate": "Southdowns Estate"
+    },
+    "blue-valley": {
+      "province": "Gauteng",
+      "city": "Centurion",
+      "area": "Centurion",
+      "suburb": null,
+      "estate": "Blue Valley Golf Estate"
+    },
+    "copperleaf": {
+      "province": "Gauteng",
+      "city": "Centurion",
+      "area": "Centurion",
+      "suburb": null,
+      "estate": "Copperleaf Golf & Country Estate"
+    },
+    "mooikloof": {
+      "province": "Gauteng",
+      "city": "Pretoria",
+      "area": "Pretoria East",
+      "suburb": null,
+      "estate": "Mooikloof Equestrian Estate"
+    },
+    "sable-hills": {
+      "province": "Gauteng",
+      "city": "Pretoria",
+      "area": "Roodeplaat",
+      "suburb": null,
+      "estate": "Sable Hills Waterfront Estate"
+    },
+    "blair-atholl": {
+      "province": "Gauteng",
+      "city": "Lanseria",
+      "area": "Lanseria",
+      "suburb": null,
+      "estate": "Blair Atholl Golf & Equestrian Estate"
+    },
+    "monaghan": {
+      "province": "Gauteng",
+      "city": "Lanseria",
+      "area": "Lanseria",
+      "suburb": null,
+      "estate": "Monaghan Farm"
+    },
+    "meyersdal": {
+      "province": "Gauteng",
+      "city": "Alberton",
+      "area": "Meyersdal",
+      "suburb": null,
+      "estate": "Meyersdal Nature Estate"
+    },
+    "ebotse": {
+      "province": "Gauteng",
+      "city": "Benoni",
+      "area": "Ekurhuleni",
+      "suburb": null,
+      "estate": "Ebotse Golf & Country Estate"
+    },
+    "bedfordview": {
+      "province": "Gauteng",
+      "city": "Bedfordview",
+      "area": "Ekurhuleni",
+      "suburb": "Bedfordview",
+      "estate": null
+    },
+    "senderwood": {
+      "province": "Gauteng",
+      "city": "Bedfordview",
+      "area": "Ekurhuleni",
+      "suburb": "Senderwood",
+      "estate": null
+    },
+    "st-andrews": {
+      "province": "Gauteng",
+      "city": "Bedfordview",
+      "area": "Ekurhuleni",
+      "suburb": "St Andrews",
+      "estate": null
+    },
+    "ridgehill": {
+      "province": "Mpumalanga",
+      "city": "Mbombela",
+      "area": "Nelspruit",
+      "suburb": null,
+      "estate": "Ridgehill Estate"
+    },
+    "alkmaar": {
+      "province": "Mpumalanga",
+      "city": "Mbombela",
+      "area": "Nelspruit",
+      "suburb": "Alkmaar",
+      "estate": null
+    }
+  },
+  "properties": [
+    {
+      "slug": "the-coves-aviation-residence",
+      "posts": [
+        "Ddn2uNkCAkG"
+      ],
+      "loc": "the-coves",
+      "title": "Aviation Residence with Private Hangar",
+      "type": "House"
+    },
+    {
+      "slug": "fresnaye-view-residence",
+      "posts": [
+        "DdioO74iEkq"
+      ],
+      "loc": "fresnaye",
+      "title": "Four-Bedroom Residence with Elevator and Views",
+      "type": "House"
+    },
+    {
+      "slug": "pinnacle-point-fairway-residence",
+      "posts": [
+        "DdVtfXlCKVX"
+      ],
+      "loc": "pinnacle-point",
+      "title": "Double-Storey Residence over Fairway and Ocean",
+      "type": "House"
+    },
+    {
+      "slug": "sandown-estate-townhouse",
+      "posts": [
+        "Dc5q-xWCDNS",
+        "DdULQX2hwEQ",
+        "Dc0STyBI8QL",
+        "Dcx8n4eo0sJ"
+      ],
+      "loc": "sandown",
+      "title": "Largest Unit in a Five-Unit Sandown Estate",
+      "type": "Cluster"
+    },
+    {
+      "slug": "meyersdal-nature-estate-residence",
+      "posts": [
+        "DdN6deuCJuQ"
+      ],
+      "loc": "meyersdal",
+      "title": "Five-Bedroom Nature Estate Residence",
+      "type": "House"
+    },
+    {
+      "slug": "blair-atholl-fairway-home",
+      "posts": [
+        "DdMaLIQCA3C"
+      ],
+      "loc": "blair-atholl",
+      "title": "Countryside Family Home on the Fairway",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-secure-estate-home",
+      "posts": [
+        "DdGRmzViBpi"
+      ],
+      "loc": "bryanston",
+      "title": "Family Home in a Secure Bryanston Estate",
+      "type": "House"
+    },
+    {
+      "slug": "zululami-ocean-view-residence",
+      "posts": [
+        "DdEffQljEng"
+      ],
+      "loc": "zululami",
+      "title": "Brand-New Ocean-View Residence",
+      "type": "House"
+    },
+    {
+      "slug": "zululami-sea-view-new-build",
+      "posts": [
+        "DcRGtrhDGbp",
+        "DcT1JNqsv4Z"
+      ],
+      "loc": "zululami",
+      "title": "Brand-New Sea-View Home with Pool",
+      "type": "House"
+    },
+    {
+      "slug": "khyber-rock-architectural-residence",
+      "posts": [
+        "DdBL8GpCK1n"
+      ],
+      "loc": "khyber-rock",
+      "title": "Three-Level Residence by SBS Architects",
+      "type": "House"
+    },
+    {
+      "slug": "midstream-ridge-trophy-home",
+      "posts": [
+        "Dc-ivCAIEW2",
+        "Dcp86krom-q",
+        "DI6gOiOMiiZ"
+      ],
+      "loc": "midstream-ridge",
+      "title": "Six-Bedroom Trophy Home with Twelve Garages",
+      "type": "House"
+    },
+    {
+      "slug": "blue-valley-greenbelt-home",
+      "posts": [
+        "Dc2z3_siBTt"
+      ],
+      "loc": "blue-valley",
+      "title": "Greenbelt Home in Blue Valley",
+      "type": "House"
+    },
+    {
+      "slug": "pearl-valley-furnished-residence",
+      "posts": [
+        "DcvFuhpCGN6"
+      ],
+      "loc": "pearl-valley",
+      "title": "Fully Furnished Architectural Residence",
+      "type": "House"
+    },
+    {
+      "slug": "morningside-modern-residence",
+      "posts": [
+        "Dcl00RciAr2"
+      ],
+      "loc": "morningside",
+      "title": "Modern Five-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "helderfontein-contemporary-home",
+      "posts": [
+        "DcgTgO9iBPN"
+      ],
+      "loc": "helderfontein",
+      "title": "Contemporary Four-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "waterfall-country-modern-home",
+      "posts": [
+        "Dcbd1GACLhw"
+      ],
+      "loc": "waterfall-country",
+      "title": "Light-Filled Modern Family Home",
+      "type": "House"
+    },
+    {
+      "slug": "steyn-city-entertainers-home",
+      "posts": [
+        "DcYrBQxiO_1"
+      ],
+      "loc": "steyn-city",
+      "title": "Residence Designed for Entertaining",
+      "type": "House"
+    },
+    {
+      "slug": "baronetcy-panoramic-residence",
+      "posts": [
+        "DcQZw4YCFi0"
+      ],
+      "loc": "baronetcy",
+      "title": "Residence with Table Mountain and Atlantic Views",
+      "type": "House"
+    },
+    {
+      "slug": "hyde-park-master-built-home",
+      "posts": [
+        "DcLFe_cIAui"
+      ],
+      "loc": "hyde-park",
+      "title": "Master-Built Five-Bedroom Home",
+      "type": "House"
+    },
+    {
+      "slug": "atholl-furnished-cluster",
+      "posts": [
+        "DcI9OX1iMss"
+      ],
+      "loc": "atholl",
+      "title": "Fully Furnished Custom Cluster Home",
+      "type": "Cluster"
+    },
+    {
+      "slug": "monaghan-farm-residence",
+      "posts": [
+        "Db-bRCOiMeW"
+      ],
+      "loc": "monaghan",
+      "title": "Seven-Bedroom Residence with Guest House",
+      "type": "House"
+    },
+    {
+      "slug": "llandudno-elevated-residence",
+      "posts": [
+        "Db5K1nhCOB5"
+      ],
+      "loc": "llandudno",
+      "title": "Elevated Residence with Atlantic Views",
+      "type": "House"
+    },
+    {
+      "slug": "midstream-heights-new-residence",
+      "posts": [
+        "Db2mKi8CJRd"
+      ],
+      "loc": "midstream-heights",
+      "title": "Newly Built Six-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "val-de-vie-reserve-residence",
+      "posts": [
+        "DbxfB2QiI5H"
+      ],
+      "loc": "val-de-vie",
+      "title": "Multi-Level Home on a 3,005 m² Stand in The Reserve",
+      "type": "House"
+    },
+    {
+      "slug": "izinga-park-new-residence",
+      "posts": [
+        "DbnKlgkiMUX"
+      ],
+      "loc": "izinga",
+      "title": "Brand-New Architect-Designed Residence",
+      "type": "House"
+    },
+    {
+      "slug": "the-islands-waterfront-residence",
+      "posts": [
+        "Dbkboj-CKlC"
+      ],
+      "loc": "the-islands",
+      "title": "Six-Bedroom Waterfront Residence",
+      "type": "House"
+    },
+    {
+      "slug": "southdowns-family-home",
+      "posts": [
+        "DbdTYGhDBVo"
+      ],
+      "loc": "southdowns",
+      "title": "Five-Bedroom Family Home with Pasture Views",
+      "type": "House"
+    },
+    {
+      "slug": "stonehurst-mountain-residence",
+      "posts": [
+        "Dbad22IiERn"
+      ],
+      "loc": "stonehurst",
+      "title": "Four-Bedroom Mountain Estate Residence",
+      "type": "House"
+    },
+    {
+      "slug": "waterfall-country-new-build",
+      "posts": [
+        "DbXlGG5iK3M"
+      ],
+      "loc": "waterfall-country",
+      "title": "Newly Built, Move-In Ready Residence",
+      "type": "House"
+    },
+    {
+      "slug": "green-point-ocean-view-apartment",
+      "posts": [
+        "DbSh7zGu_Jd"
+      ],
+      "loc": "green-point",
+      "title": "Furnished Apartment with Ocean and Harbour Views",
+      "type": "Apartment"
+    },
+    {
+      "slug": "waterfall-equestrian-estate-residence",
+      "posts": [
+        "DbSdsH1CKae"
+      ],
+      "loc": "waterfall-equestrian",
+      "title": "Residence on One Hectare",
+      "type": "House"
+    },
+    {
+      "slug": "eye-of-africa-cantilevered-residence",
+      "posts": [
+        "DbNReKXiF5h"
+      ],
+      "loc": "eye-of-africa",
+      "title": "Architectural Residence Set on Stilts",
+      "type": "House"
+    },
+    {
+      "slug": "eye-of-africa-single-storey-home",
+      "posts": [
+        "DbsgbqrMPXU",
+        "Db-i0klsrCy",
+        "Da2TfOsR4yd",
+        "DX6P8zDs4z4",
+        "DVyoYx0jML1",
+        "DVbXjzijbhj"
+      ],
+      "loc": "eye-of-africa",
+      "title": "Modern Single-Storey Home",
+      "type": "House"
+    },
+    {
+      "slug": "constantia-mountain-view-residence",
+      "posts": [
+        "DbIF8LDCHqW"
+      ],
+      "loc": "constantia",
+      "title": "Five-Bedroom Residence with Mountain Views",
+      "type": "House"
+    },
+    {
+      "slug": "val-de-vie-cul-de-sac-residence",
+      "posts": [
+        "Da90hgaiPjl"
+      ],
+      "loc": "val-de-vie",
+      "title": "Five-Bedroom Home on a Double Stand",
+      "type": "House"
+    },
+    {
+      "slug": "pearl-valley-grand-residence",
+      "posts": [
+        "Da7WnlpiMzw"
+      ],
+      "loc": "pearl-valley",
+      "title": "Grand Private Residence with Sweeping Views",
+      "type": "House"
+    },
+    {
+      "slug": "senderwood-income-property",
+      "posts": [
+        "Daw-nqHCLPM"
+      ],
+      "loc": "senderwood",
+      "title": "Freehold House with Three Cottages",
+      "type": "House"
+    },
+    {
+      "slug": "senderwood-secure-complex-home",
+      "posts": [
+        "DauZcmGiIao"
+      ],
+      "loc": "senderwood",
+      "title": "Double-Storey Home in a Seven-Unit Complex",
+      "type": "Cluster"
+    },
+    {
+      "slug": "bedfordview-entertainers-home",
+      "posts": [
+        "DahileeCEan",
+        "DaicRFzIUQY",
+        "DamvwVSoY2r"
+      ],
+      "loc": "bedfordview",
+      "title": "Entertainer's Home on a Boomed Road",
+      "type": "House"
+    },
+    {
+      "slug": "st-andrews-skyline-cluster",
+      "posts": [
+        "DakELuviKXA"
+      ],
+      "loc": "st-andrews",
+      "title": "Triple-Storey Cluster with Skyline Views",
+      "type": "Cluster"
+    },
+    {
+      "slug": "southdowns-architectural-home",
+      "posts": [
+        "DYWlNAaCJdY",
+        "DacMi95jQqP",
+        "Daj8pGhNESQ"
+      ],
+      "loc": "southdowns",
+      "title": "Three-Bedroom Architectural Home",
+      "type": "House"
+    },
+    {
+      "slug": "mooikloof-award-winning-residence",
+      "posts": [
+        "DaXLYpiiIk_"
+      ],
+      "loc": "mooikloof",
+      "title": "PIA Award-Winning Residence on One Hectare",
+      "type": "House"
+    },
+    {
+      "slug": "oubaai-eddie-da-silva-residence",
+      "posts": [
+        "DaUotwAiI2b"
+      ],
+      "loc": "oubaai",
+      "title": "Residence by Architect Eddie Da Silva",
+      "type": "House"
+    },
+    {
+      "slug": "pinnacle-point-contemporary-residence",
+      "posts": [
+        "DaSHw5lCGJ5"
+      ],
+      "loc": "pinnacle-point",
+      "title": "Contemporary Five-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "clifton-nettleton-road-residence",
+      "posts": [
+        "DaK7yOQoQs7",
+        "DaBUFVnxOXW"
+      ],
+      "loc": "clifton",
+      "title": "Nettleton Road Residence",
+      "type": "House"
+    },
+    {
+      "slug": "midstream-new-family-home",
+      "posts": [
+        "DaIR5r2oZpg"
+      ],
+      "loc": "midstream",
+      "title": "Brand-New Five-Bedroom Home",
+      "type": "House"
+    },
+    {
+      "slug": "duxberry-off-grid-residence",
+      "posts": [
+        "DZ9e3dpoQE0"
+      ],
+      "loc": "duxberry",
+      "title": "Off-Grid Residence",
+      "type": "House"
+    },
+    {
+      "slug": "strathavon-four-level-residence",
+      "posts": [
+        "DZ4TWluiIWP"
+      ],
+      "loc": "strathavon",
+      "title": "Four-Level Residence",
+      "type": "House"
+    },
+    {
+      "slug": "hyde-park-arthur-quinton-residence",
+      "posts": [
+        "DUC-A7aCEyV",
+        "DZw1rLpI4FC",
+        "DZmU1MKIIr0"
+      ],
+      "loc": "hyde-park",
+      "title": "Residence Designed by Arthur Quinton",
+      "type": "House"
+    },
+    {
+      "slug": "sable-hills-waterfront-home",
+      "posts": [
+        "DZrg4ezCCIE"
+      ],
+      "loc": "sable-hills",
+      "title": "Six-Bedroom Waterfront Home",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-two-bedroom-apartment",
+      "posts": [
+        "DZe9QLCK5NS"
+      ],
+      "loc": "bryanston",
+      "title": "Two-Bedroom Apartment near Bryanston Centre",
+      "type": "Apartment"
+    },
+    {
+      "slug": "eagle-canyon-three-level-residence",
+      "posts": [
+        "DZeqIf9CFM8"
+      ],
+      "loc": "eagle-canyon",
+      "title": "Three-Level Residence",
+      "type": "House"
+    },
+    {
+      "slug": "val-de-vie-garden-residence",
+      "posts": [
+        "DZZXt8uCB9M"
+      ],
+      "loc": "val-de-vie",
+      "title": "Five-Bedroom Home with Mountain Views",
+      "type": "House"
+    },
+    {
+      "slug": "morningside-open-plan-home",
+      "posts": [
+        "DZUOs7GiHJ-"
+      ],
+      "loc": "morningside",
+      "title": "Four-Bedroom Open-Plan Home",
+      "type": "House"
+    },
+    {
+      "slug": "zimbali-fairway-lake-residence",
+      "posts": [
+        "DZKeNqciK_n"
+      ],
+      "loc": "zimbali",
+      "title": "Residence with Fairway, Lake and Sea Views",
+      "type": "House"
+    },
+    {
+      "slug": "camps-bay-five-bedroom-home",
+      "posts": [
+        "DZFWvShIAv6"
+      ],
+      "loc": "camps-bay",
+      "title": "Five-Bedroom Home with Sea-View Pool",
+      "type": "House"
+    },
+    {
+      "slug": "seaton-estate-residence",
+      "posts": [
+        "DY7d4prMGdZ"
+      ],
+      "loc": "seaton",
+      "title": "Four-Bedroom Estate Residence",
+      "type": "House"
+    },
+    {
+      "slug": "simola-estate-residence",
+      "posts": [
+        "DY6teEwiCta"
+      ],
+      "loc": "simola",
+      "title": "Five-Bedroom Golf Estate Residence",
+      "type": "House"
+    },
+    {
+      "slug": "constantia-north-facing-residence",
+      "posts": [
+        "DY1an4QiOfO"
+      ],
+      "loc": "constantia",
+      "title": "North-Facing Residence on 6,331 m²",
+      "type": "House"
+    },
+    {
+      "slug": "val-de-vie-architectural-residence",
+      "posts": [
+        "DYwpYhBiAnA"
+      ],
+      "loc": "val-de-vie",
+      "title": "Architectural Residence Designed for Privacy",
+      "type": "House"
+    },
+    {
+      "slug": "helderfontein-corner-stand-home",
+      "posts": [
+        "DYohqqsiJIP"
+      ],
+      "loc": "helderfontein",
+      "title": "Statement Home on a Corner Stand",
+      "type": "House"
+    },
+    {
+      "slug": "thaba-eco-village-apartment",
+      "posts": [
+        "DYkLo1aMsef",
+        "DYfIKQljPwz"
+      ],
+      "loc": "thaba",
+      "title": "One-Bedroom Eco-Estate Apartment",
+      "type": "Apartment"
+    },
+    {
+      "slug": "ridgehill-estate-family-home",
+      "posts": [
+        "DYjTLENosg0",
+        "DYjcbatDHzY"
+      ],
+      "loc": "ridgehill",
+      "title": "Five-Bedroom Family Home",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-designer-cluster",
+      "posts": [
+        "DYeKjn_iPbt"
+      ],
+      "loc": "bryanston",
+      "title": "Designer Cluster with Luxury Furniture",
+      "type": "Cluster"
+    },
+    {
+      "slug": "steyn-city-furnished-residence",
+      "posts": [
+        "DYRU_6kCKjk"
+      ],
+      "loc": "steyn-city",
+      "title": "Five-Bedroom Residence, Furnished or Unfurnished",
+      "type": "House"
+    },
+    {
+      "slug": "zimbali-masterpiece-home",
+      "posts": [
+        "DYMYDM5iLZM"
+      ],
+      "loc": "zimbali",
+      "title": "Four-Bedroom Estate Home",
+      "type": "House"
+    },
+    {
+      "slug": "constantia-french-chateau",
+      "posts": [
+        "DX6JtpiCOSx"
+      ],
+      "loc": "constantia",
+      "title": "French Château in Upper Constantia",
+      "type": "House"
+    },
+    {
+      "slug": "steyn-city-contemporary-residence",
+      "posts": [
+        "DXyarJlCOKA"
+      ],
+      "loc": "steyn-city",
+      "title": "Contemporary Five-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "bantry-bay-multi-level-apartment",
+      "posts": [
+        "DXwNj1iNIzp"
+      ],
+      "loc": "bantry-bay",
+      "title": "Multi-Level Apartment with Private Pool",
+      "type": "Apartment"
+    },
+    {
+      "slug": "midstream-heights-brand-new-home",
+      "posts": [
+        "DXtPW3GCIEI"
+      ],
+      "loc": "midstream-heights",
+      "title": "Brand-New Five-Bedroom Home",
+      "type": "House"
+    },
+    {
+      "slug": "umhlanga-ridgeside-home",
+      "posts": [
+        "DXoRmEpCFpb"
+      ],
+      "loc": "ridgeside",
+      "title": "Freestanding Home in Ridgeside",
+      "type": "House"
+    },
+    {
+      "slug": "green-point-penthouse",
+      "posts": [
+        "DXi-s36CMcc"
+      ],
+      "loc": "green-point",
+      "title": "Two-Level Penthouse",
+      "type": "Penthouse"
+    },
+    {
+      "slug": "helderfontein-new-build",
+      "posts": [
+        "DXdzXjkiC-G"
+      ],
+      "loc": "helderfontein",
+      "title": "Newly Built Five-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "sandown-sanctuary",
+      "posts": [
+        "DXbReF2DGK-"
+      ],
+      "loc": "sandown",
+      "title": "Five-Bedroom Sandown Residence",
+      "type": "House"
+    },
+    {
+      "slug": "pearl-valley-new-residence",
+      "posts": [
+        "DXWDHJWiCT0"
+      ],
+      "loc": "pearl-valley",
+      "title": "Brand-New Four-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "steyn-city-three-level-residence",
+      "posts": [
+        "DXOcEm2iESh"
+      ],
+      "loc": "steyn-city",
+      "title": "North-Facing Three-Level Residence",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-mount-street-mansion",
+      "posts": [
+        "DXLy07BDOhI"
+      ],
+      "loc": "bryanston",
+      "title": "Four-Level Residence on Mount Street",
+      "type": "House"
+    },
+    {
+      "slug": "midstream-green-view-home",
+      "posts": [
+        "DXGsa29jKxJ"
+      ],
+      "loc": "midstream",
+      "title": "Five-Bedroom Home with Green Views",
+      "type": "House"
+    },
+    {
+      "slug": "simola-state-of-the-art-home",
+      "posts": [
+        "DW_AiyXjA-E"
+      ],
+      "loc": "simola",
+      "title": "State-of-the-Art Five-Bedroom Home",
+      "type": "House"
+    },
+    {
+      "slug": "zululami-three-bedroom-home",
+      "posts": [
+        "DW6pzuDDDoK"
+      ],
+      "loc": "zululami",
+      "title": "Three-Bedroom Home near Sheffield Beach",
+      "type": "House"
+    },
+    {
+      "slug": "zimbali-yellow-wood-residence",
+      "posts": [
+        "DW52x7rjIBj"
+      ],
+      "loc": "zimbali",
+      "title": "Residence on Yellow Wood Drive",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-three-storey-residence",
+      "posts": [
+        "DW3PTSHjPrD"
+      ],
+      "loc": "bryanston",
+      "title": "Newly Built Three-Storey Residence",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-ridge-residence",
+      "posts": [
+        "DWqXn4jDPVh"
+      ],
+      "loc": "bryanston",
+      "title": "Architect-Designed Home on the Ridge",
+      "type": "House"
+    },
+    {
+      "slug": "la-como-cul-de-sac-home",
+      "posts": [
+        "DWn3jZMCBpi"
+      ],
+      "loc": "la-como",
+      "title": "Four-Bedroom Home at the End of a Cul-de-Sac",
+      "type": "House"
+    },
+    {
+      "slug": "alkmaar-42-hectare-farm",
+      "posts": [
+        "DWlDwd9iDlL"
+      ],
+      "loc": "alkmaar",
+      "title": "42-Hectare Farm with Dam and Macadamia Orchard",
+      "type": "Farm"
+    },
+    {
+      "slug": "st-francis-links-home",
+      "posts": [
+        "DWgEzuRCGZw"
+      ],
+      "loc": "st-francis-links",
+      "title": "Five-Bedroom Golf Estate Home",
+      "type": "House"
+    },
+    {
+      "slug": "oakdene-three-bedroom-apartment",
+      "posts": [
+        "DWbH9NojNfd",
+        "DVtcZaYDK4U"
+      ],
+      "loc": "oakdene",
+      "title": "Three-Bedroom Apartment",
+      "type": "Apartment"
+    },
+    {
+      "slug": "oakdene-three-bedroom-home",
+      "posts": [
+        "DbAfSkJMOmM"
+      ],
+      "loc": "oakdene",
+      "title": "Three-Bedroom Home",
+      "type": "House"
+    },
+    {
+      "slug": "lilyfield-apartment",
+      "posts": [
+        "DWWsWMyCArd"
+      ],
+      "loc": "lilyfield",
+      "title": "One-Bedroom Apartment (Bank Sale)",
+      "type": "Apartment"
+    },
+    {
+      "slug": "ebotse-renovated-home",
+      "posts": [
+        "DWVr3APCPxP"
+      ],
+      "loc": "ebotse",
+      "title": "Furnished, Fully Renovated Home",
+      "type": "House"
+    },
+    {
+      "slug": "sandown-renovation-opportunity",
+      "posts": [
+        "DWTevxUCOTF"
+      ],
+      "loc": "sandown",
+      "title": "Renovation Opportunity on 2,620 m²",
+      "type": "House"
+    },
+    {
+      "slug": "midstream-ridge-greenbelt-home",
+      "posts": [
+        "DWOHzzNCKV1"
+      ],
+      "loc": "midstream-ridge",
+      "title": "Seven-Bedroom Greenbelt Home",
+      "type": "House"
+    },
+    {
+      "slug": "eye-of-africa-double-storey-home",
+      "posts": [
+        "DWHKsmYDAQj",
+        "DV_fJmojD-V"
+      ],
+      "loc": "eye-of-africa",
+      "title": "Five-Bedroom Double-Storey Home",
+      "type": "House"
+    },
+    {
+      "slug": "morningside-enclave-residence",
+      "posts": [
+        "DV-hZzAiJRg"
+      ],
+      "loc": "morningside",
+      "title": "Freestanding Home in a Boomed Enclave",
+      "type": "House"
+    },
+    {
+      "slug": "camps-bay-contemporary-family-home",
+      "posts": [
+        "DV5XNy5iBQF"
+      ],
+      "loc": "camps-bay",
+      "title": "Contemporary Six-Bedroom Family Home",
+      "type": "House"
+    },
+    {
+      "slug": "camps-bay-elevated-home",
+      "posts": [
+        "DVvLJn9jJyc"
+      ],
+      "loc": "camps-bay",
+      "title": "Elevated Home a Short Walk from the Beach",
+      "type": "House"
+    },
+    {
+      "slug": "bryanston-offers-residence",
+      "posts": [
+        "DVqQU2NjASG"
+      ],
+      "loc": "bryanston",
+      "title": "Four-Bedroom Residence",
+      "type": "House"
+    },
+    {
+      "slug": "copperleaf-fairway-retreat",
+      "posts": [
+        "DVfs7bSjM4z"
+      ],
+      "loc": "copperleaf",
+      "title": "Six-Bedroom Fairway Home",
+      "type": "House"
+    },
+    {
+      "slug": "oubaai-hilltop-residence",
+      "posts": [
+        "DVYJNW6iCFl"
+      ],
+      "loc": "oubaai",
+      "title": "Hilltop Residence by Tommy Joyce of Arnotrim",
+      "type": "House"
+    },
+    {
+      "slug": "camps-bay-double-storey-home",
+      "posts": [
+        "DUdgS_yjBmI"
+      ],
+      "loc": "camps-bay",
+      "title": "Double-Storey Home, VAT Inclusive",
+      "type": "House"
+    },
+    {
+      "slug": "zimbali-ilanga-villa",
+      "posts": [
+        "DdZXLEBsVY0",
+        "DcjRjmWDCMH",
+        "DcblGfUsAiJ"
+      ],
+      "loc": "zimbali",
+      "title": "iLanga Villa",
+      "type": "House"
+    },
+    {
+      "slug": "elaleni-the-woods-home",
+      "posts": [
+        "DdRvqqhDBi9",
+        "DdHcm-NMbbe"
+      ],
+      "loc": "elaleni",
+      "title": "Brand-New Home in The Woods 2",
+      "type": "House"
+    },
+    {
+      "slug": "palm-lakes-family-home",
+      "posts": [
+        "DcgsMroDCMB",
+        "Dcg8Cl4Mvs3"
+      ],
+      "loc": "palm-lakes",
+      "title": "Four-Bedroom Family Home with Pool",
+      "type": "House"
+    },
+    {
+      "slug": "ballito-sea-view-apartment",
+      "posts": [
+        "Dcd2By3MoKc"
+      ],
+      "loc": "ballito",
+      "title": "Two-Bedroom Apartment with Partial Sea Views",
+      "type": "Apartment"
+    }
+  ],
+  "sold": [
+    {
+      "slug": "bryanston-sold-2026",
+      "posts": [
+        "DZRlW8wDZw7",
+        "DZMohVbtqs1"
+      ],
+      "loc": "bryanston",
+      "evidence": "Agent caption (Fran La Reservee, 7 Jun 2026): 'The property has since been sold and is no longer available'. No price or specifications published."
+    },
+    {
+      "slug": "eye-of-africa-sold-2026",
+      "posts": [
+        "DWWg5WaDPK-"
+      ],
+      "loc": "eye-of-africa",
+      "evidence": "Agent reel (neo_your_fav_realtor, 26 Mar 2026): 'Congratulations to the seller and buyer for a seamless transaction'. No price or specifications published."
+    }
+  ],
+  "overrides": {
+    "zululami-ocean-view-residence": {
+      "bedrooms": 5,
+      "bathrooms": 4.5,
+      "garages": 2,
+      "_source": "DdEffQljEng caption: '5 spacious bedrooms', '4.5 luxurious bathrooms', 'Double garage'"
+    },
+    "zululami-sea-view-new-build": {
+      "bedrooms": 4,
+      "bathrooms": 4,
+      "_source": "DcRGtrhDGbp caption: '4 Bedrooms', '4 Bathrooms'"
+    },
+    "zimbali-ilanga-villa": {
+      "bedrooms": 3,
+      "bathrooms": 4,
+      "garages": 2,
+      "_source": "DcjRjmWDCMH/DcblGfUsAiJ captions: '3 bedrooms. 4 bathrooms', 'Double Garage'"
+    },
+    "elaleni-the-woods-home": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "floorSizeM2": 152,
+      "_source": "DdRvqqhDBi9 caption: '3 Bedrooms | 2 Bathrooms | 152m²'"
+    },
+    "palm-lakes-family-home": {
+      "bedrooms": 4,
+      "bathrooms": 3.5,
+      "erfSizeM2": 600,
+      "garages": 2,
+      "_source": "DcgsMroDCMB caption: '600 m² Erf', 'Double Garage'"
+    },
+    "ballito-sea-view-apartment": {
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "floorSizeM2": 78,
+      "_source": "Dcd2By3MoKc caption: '2 Bedrooms | 2 Bathrooms', '78 m²'"
+    },
+    "clifton-nettleton-road-residence": {
+      "bedrooms": 4,
+      "bathrooms": 4,
+      "priceZAR": 175000000,
+      "_source": "DaK7yOQoQs7: 'R175 000 000', '4 generously sized bedrooms, all en-suite'; DaBUFVnxOXW: '4 Bathrooms'. '724 s qm' unlabelled, not recorded."
+    },
+    "green-point-ocean-view-apartment": {
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "_source": "DbSh7zGu_Jd caption: '2-bedroom, 2-bathroom apartment'"
+    },
+    "bantry-bay-multi-level-apartment": {
+      "bedrooms": 3,
+      "bathrooms": 3.5,
+      "parking": 2,
+      "floorSizeM2": 261,
+      "priceZAR": 28000000,
+      "_source": "DXwNj1iNIzp caption: '3-bedroom, 3.5-bathroom', 'parking for 2 cars', '261 m²', 'R28 million'"
+    },
+    "southdowns-family-home": {
+      "bedrooms": 5,
+      "bathrooms": null,
+      "_source": "DbdTYGhDBVo caption: '5 En-suite Bedrooms & Bathrooms' (bathroom count not stated separately)"
+    },
+    "southdowns-architectural-home": {
+      "_source": "DYWlNAaCJdY template carries full specs; DacMi95jQqP adds 'Family Suite' and confirms R14 500 000"
+    },
+    "eye-of-africa-single-storey-home": {
+      "bedrooms": 4,
+      "bathrooms": 4.5,
+      "garages": 3,
+      "_source": "DX6P8zDs4z4: '4 Bedroom', '4.5 Bathroom', '3 Car Garage'. An unlabelled '810 m²' is NOT recorded (could be floor or erf)."
+    },
+    "eye-of-africa-double-storey-home": {
+      "bedrooms": 5,
+      "bathrooms": 6,
+      "garages": 4,
+      "_source": "DWHKsmYDAQj: '5 Bed', '6 Bath', '4 Garages', '930 m²' (unlabelled area, not recorded)"
+    },
+    "thaba-eco-village-apartment": {
+      "bedrooms": 1,
+      "priceZAR": 1100000,
+      "_source": "DYkLo1aMsef: 'R1.1 million for a 1 bedroom'"
+    },
+    "oakdene-three-bedroom-apartment": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "parking": 2,
+      "_source": "DWbH9NojNfd: '3 Bedroom', '2 Bathroom', '2 Covered Parking Bays'"
+    },
+    "oakdene-three-bedroom-home": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "parking": 2,
+      "priceZAR": 1100000,
+      "_source": "DbAfSkJMOmM: 'budget is around R1.1 million', '3 Bedrooms', '2 Bathrooms', '2 Carports' — price stated approximately"
+    },
+    "bryanston-two-bedroom-apartment": {
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "parking": 2,
+      "_source": "DZe9QLCK5NS: '2 bed', '2 bath', '2 secured parking spaces'"
+    },
+    "seaton-estate-residence": {
+      "bedrooms": 4,
+      "priceZAR": 10000000,
+      "_source": "DY7d4prMGdZ: '4 Spacious Bedrooms', 'Priced at R10 000 000'"
+    },
+    "camps-bay-five-bedroom-home": {
+      "bedrooms": 5,
+      "bathrooms": 5,
+      "priceZAR": 15000000,
+      "_source": "DZFWvShIAv6: '**REDUCED** ASKING R15 MILLION' (same caption also repeats an earlier 'ASKING PRICE: R17.995 MILLION')"
+    },
+    "zululami-three-bedroom-home": {
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "_source": "DW6pzuDDDoK: '3 Bedrooms | 2 Bathrooms'; no price published"
+    },
+    "ridgehill-estate-family-home": {
+      "_source": "DYjTLENosg0 template"
+    },
+    "alkmaar-42-hectare-farm": {
+      "erfSizeM2": 420000,
+      "_source": "DWlDwd9iDlL: 'Erf Size: 42ha'"
+    },
+    "hyde-park-arthur-quinton-residence": {
+      "erfSizeM2": 912,
+      "_source": "DUC-A7aCEyV: 'Floor Size: 912 m²' and 'Erf Size: 912' (identical figures — see conflicts)"
+    },
+    "bryanston-offers-residence": {
+      "priceZAR": 15000000,
+      "_note": "Caption: 'Inviting offers from R15m, seller asking R17m' — displayed as offers-from price"
+    },
+    "steyn-city-furnished-residence": {
+      "priceZAR": 49000000,
+      "_note": "Caption: 'Furnished: R54,000,000 / Unfurnished: R49,000,000' — lower (unfurnished) figure used for sorting; both shown"
+    },
+    "midstream-ridge-trophy-home": {
+      "_source": "Caption calls it a '1,600sqm trophy home' — unlabelled area, not recorded as floor or erf size."
+    }
+  },
+  "agencyHints": {
+    "_about": "Agency associations derived from explicit evidence only (email domain, 'Proudly listed by', co-author handles).",
+    "Jacqui Steinmann": {
+      "agency": "Live Real Estate",
+      "evidence": "email jacqui@liverealestate.co.za; co-author jhb_live_real_estate"
+    },
+    "Jade Aglioti": {
+      "agency": "Live Real Estate",
+      "evidence": "email Jade@liverealestate.co.za; handle @jadeliverealestate"
+    },
+    "Fran La Reservee": {
+      "agency": "Zamosh Property Group",
+      "evidence": "email fran@zamoshpropertygroup.co.za; co-author @zamoshproperty"
+    },
+    "Kyla Rose Shaked": {
+      "agency": "Lance Real Estate",
+      "evidence": "email kyla@lancerealestate.co; 'Proudly presented by Lance Real Estate'"
+    },
+    "Brendan Miller": {
+      "agency": null,
+      "evidence": "tagged @live_real_estate on DUdgS_yjBmI (association not stated in text)"
+    }
+  },
+  "media": {
+    "_about": "Per-property media decisions from the visual gallery audit (reports/media-reconciliation.md). hero = source frame to lead with; exclude = frames removed; posterOnly = cover contains a person or burned-in promotional text, so it is never used as a featured/hero image outside its own page.",
+    "bryanston-two-bedroom-apartment": {
+      "posterOnly": true,
+      "note": "Reel cover shows the agent in frame"
+    },
+    "seaton-estate-residence": {
+      "posterOnly": true,
+      "note": "Reel cover shows the agent in frame"
+    },
+    "oakdene-three-bedroom-home": {
+      "posterOnly": true,
+      "note": "Reel cover carries burned-in price/spec text"
+    },
+    "green-point-ocean-view-apartment": {
+      "posterOnly": true,
+      "note": "Reel cover is a TV-wall interior; weak representation"
+    },
+    "fresnaye-view-residence": {
+      "hero": "05.jpg",
+      "note": "Infinity-pool frame with Lion's Head and sea leads; carousel cover (street facade) follows"
+    }
+  },
+  "descriptions": {
+    "_about": "Descriptions assembled ONLY from verbatim sentences of the listed source captions (selection + trimming of hooks, questions, contact lines and prices). No new claims.",
+    "zululami-ocean-view-residence": "This exceptional brand-new residence in Zululami Luxury Coastal Estate has been designed around exactly that idea: homes that make the coastline part of everyday life.\n\nPositioned to capture sweeping views across the Indian Ocean, the home combines contemporary architecture, exceptional finishes and the unmistakable feeling of living in one of KwaZulu-Natal’s most sought-after coastal estates.\n\nThe expansive open-plan kitchen, dining and lounge area flows seamlessly onto a generous entertainment verandah, landscaped garden and private swimming pool. Upstairs, a dedicated pyjama lounge creates another private space to relax while enjoying the magnificent ocean outlook.",
+    "zululami-sea-view-new-build": "A brand-new luxury residence offering contemporary living, breathtaking sea views and effortless indoor-outdoor living.\n\nA home designed for those who appreciate space, style and the coastal lifestyle.",
+    "southdowns-family-home": "Welcome to one of Southdowns Estate's most impressive family homes. Every space has been thoughtfully designed for comfortable family living and effortless entertaining.",
+    "green-point-ocean-view-apartment": "Experience panoramic ocean, harbour, and city views from this beautifully furnished 2-bedroom, 2-bathroom apartment. Featuring light-filled open-plan living, premium finishes, concierge security, inverter backup power, and effortless lock-up-and-go convenience.\n\nJust moments from the V&A Waterfront, Sea Point Promenade, top restaurants, and Cape Town’s iconic beaches.",
+    "eye-of-africa-single-storey-home": "A modern single-storey home in the well known Eye of Africa estate, with a secure estate setting, scenic surroundings and restaurants minutes away.",
+    "senderwood-income-property": "Prime large freehold property in a secure enclosure: a 4-bedroom house with 3 cottages. All units are fitted with prepaid water and electricity meters.",
+    "clifton-nettleton-road-residence": "Set on the iconic Nettleton Road, this architectural masterpiece offers uninterrupted views of Clifton’s beaches, the Atlantic Ocean and the Twelve Apostles.\n\nFour generously sized bedrooms, all en-suite. A wellness centre, including a gym and sauna. An infinity pool and multiple entertainment spaces, with floor-to-ceiling glass throughout.",
+    "strathavon-four-level-residence": "A statement of pure luxury in Strathavon’s most exclusive enclave.",
+    "bryanston-two-bedroom-apartment": "Located in Bryanston, just a stone’s throw away from the Bryanston shopping centre, with 24-hour security, two secured parking spaces and a swimming pool.",
+    "zimbali-fairway-lake-residence": "Refined luxury with fairway, lake and gentle sea views.",
+    "camps-bay-five-bedroom-home": "Whether you are seeking a place to call your forever home or are a keen investor, this 5-bedroom Camps Bay home features multiple living areas and an entertainment area and pool with a sea view.",
+    "seaton-estate-residence": "An architectural masterpiece in the prestigious Seaton Estate offering modern luxury, clean design, and effortless indoor-outdoor living.",
+    "thaba-eco-village-apartment": "A one-bedroom home in Thaba Eco Village, a secure eco-estate with basketball and padel courts, a swimming pool, skate park, gym and private school.",
+    "bantry-bay-multi-level-apartment": "Stylish 3-bedroom, 3.5-bathroom apartment just moments from Cape Town’s iconic beaches.\n\nDesigned across multiple levels with elegant en-suite bedrooms, a sleek Miele kitchen, and seamless indoor-outdoor living. Includes a private pool, parking for 2 cars, inverter, and top-tier privacy.",
+    "midstream-heights-brand-new-home": "Brand new home in Midstream Heights.",
+    "zululami-three-bedroom-home": "Coastal living in Zululami Estate, near Sheffield Beach: three bedrooms, a private garden, a balcony and secure estate living, with a fitness park within the estate.",
+    "alkmaar-42-hectare-farm": "Spanning 42 hectares of fertile land near Nelspruit, this repossessed farm includes a 3-hectare dam, a macadamia orchard of 300 trees under irrigation, a licensed bar by the dam, and off-grid water and energy security.",
+    "st-francis-links-home": "Style, design, and comfort.",
+    "oakdene-three-bedroom-apartment": "A secure 3-bedroom apartment in Oakdene, Johannesburg South, minutes from Pantry gourmet grocery store. No transfer duty.",
+    "oakdene-three-bedroom-home": "A 3-bedroom, 2-bathroom home in Oakdene with 2 carports.",
+    "midstream-ridge-greenbelt-home": "Greenbelt elegance in Midstream Ridge.",
+    "eye-of-africa-double-storey-home": "Space, comfort, convenience and views, in the well known Eye of Africa Golf Estate.",
+    "zimbali-ilanga-villa": "There’s something about Zimbali that makes you slow down. The trees, the coastline, the privacy, and then you come home to iLanga Villa, where the outside becomes part of the way you live.\n\nThe living areas open completely onto the garden and covered patio, with a built-in braai. All three bedrooms have their own bathrooms, and the double garage keeps everything as convenient as the setting. Owners buy into Zimbali Coastal Estate, with access to Bushbuck Club, surrounded by coastal forest and walking trails.",
+    "elaleni-the-woods-home": "A brand-new home in one of the North Coast’s most sought-after lifestyle estates with no transfer duty.\n\nThis 3-bedroom, 2-bathroom home in The Woods 2 at Elaleni is designed around easy, modern coastal living. The open-plan kitchen, dining and living area opens onto a covered patio and private garden. Upstairs, the main bedroom has its own en-suite, with two additional bedrooms sharing a modern bathroom.\n\nOwners have access to forest trails, clubhouse facilities, swimming pools, the Leisure Centre, children’s play areas and padel courts.",
+    "palm-lakes-family-home": "Set within the sought-after Palm Lakes Estate, this elegant 4-bedroom residence combines contemporary design, generous entertainment spaces and everything a family needs for comfortable North Coast living.\n\nThe estate offers a clubhouse and restaurant, swimming pools, a lazy tube ride, a 25m training pool, a soccer field, fishing dams, nature trails, walking and jogging paths, and cycling routes.",
+    "ballito-sea-view-apartment": "A beautifully presented 2-bedroom apartment with 2 bathrooms, partial sea views and a private balcony. Positioned close to Ballito’s beaches, restaurants and shopping, with secure parking."
+  },
+  "homepage": {
+    "_about": "Editorial selections for the home page. Only for-sale properties may be used.",
+    "hero": "khyber-rock-architectural-residence",
+    "curated": [
+      "fresnaye-view-residence",
+      "llandudno-elevated-residence",
+      "zululami-ocean-view-residence"
+    ],
+    "dossier": "the-coves-aviation-residence",
+    "band": "pinnacle-point-fairway-residence",
+    "register": {
+      "Gauteng": "steyn-city-entertainers-home",
+      "Western Cape": "llandudno-elevated-residence",
+      "KwaZulu-Natal": "zimbali-ilanga-villa",
+      "North West": "the-islands-waterfront-residence"
+    }
+  }
+}

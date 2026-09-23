@@ -1,0 +1,6 @@
+node_modules/
+data/raw/media/
+data/raw/video/
+dist/
+.playwright-cli/
+.impeccable/live/
