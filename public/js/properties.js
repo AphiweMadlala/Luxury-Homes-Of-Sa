@@ -335,7 +335,50 @@
   });
 
   // ---- panels ----
-  window.lhPop($("[data-price-open]"), pricePanel, { focus: () => pminIn });
+  // Price. Phones: opening never focuses an input (on iOS that summons the numeric keyboard over the
+  // sheet); focus goes to the dialog itself and the keyboard only appears when an input is tapped. The
+  // bottom sheet then tracks the visual viewport, so it sits above the keyboard and the focused input
+  // stays in view. Desktop keeps focusing Minimum on open.
+  const PHONE = matchMedia("(max-width: 760px)");
+  const vv = window.visualViewport;
+  const priceBody = pricePanel.querySelector(".sheet__body");
+  function revealField() {
+    const f = document.activeElement;
+    if (!f || !priceBody.contains(f)) return;
+    const b = priceBody.getBoundingClientRect(), r = f.closest(".field").getBoundingClientRect();
+    if (r.top < b.top) priceBody.scrollTop -= b.top - r.top + 8;
+    else if (r.bottom > b.bottom) priceBody.scrollTop += r.bottom - b.bottom + 8;
+  }
+  function fitPrice() {
+    const kb = Math.max(0, innerHeight - vv.height - vv.offsetTop);
+    pricePanel.style.setProperty("--kb", `${Math.round(kb)}px`);
+    pricePanel.style.setProperty("--vvh", `${Math.round(vv.height)}px`);
+    requestAnimationFrame(revealField);
+  }
+  const pricePop = window.lhPop($("[data-price-open]"), pricePanel, {
+    pin: true,
+    focus: () => (PHONE.matches ? pricePanel : pminIn),
+    onOpen: () => {
+      if (!PHONE.matches || !vv) return;
+      fitPrice();
+      vv.addEventListener("resize", fitPrice);
+      vv.addEventListener("scroll", fitPrice);
+      pricePanel.addEventListener("focusin", fitPrice);
+    },
+    onClose: () => {
+      if (vv) { vv.removeEventListener("resize", fitPrice); vv.removeEventListener("scroll", fitPrice); }
+      pricePanel.removeEventListener("focusin", fitPrice);
+      pricePanel.style.removeProperty("--kb");
+      pricePanel.style.removeProperty("--vvh");
+    },
+  });
+  // Apply: commit whatever is typed (blur fires the inputs' change handler, which validates, formats and
+  // updates the results), then close; the keyboard goes with the blur.
+  $("[data-price-apply]").addEventListener("click", () => {
+    const f = document.activeElement;
+    if (f && pricePanel.contains(f) && f.matches("input")) f.blur();
+    pricePop.close();
+  });
   const filtersPop = window.lhPop($("[data-filters-open]"), sheet, { lock: "always", focus: () => sheet.querySelector("[data-pop-close]") });
 
   // ---- init ----

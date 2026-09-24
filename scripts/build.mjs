@@ -260,7 +260,7 @@ function collection() {
     ${locPicker("loc-panel")}
     <div class="pop" data-price>
       <button class="cell" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="price-panel" data-price-open><span class="cell__k">Price</span><span class="cell__v" data-price-label>Any price</span>${icon("caret-down")}</button>
-      <div class="sheet sheet--pop price__panel" id="price-panel" role="dialog" aria-modal="true" aria-labelledby="price-panel-t" hidden>
+      <div class="sheet sheet--pop price__panel" id="price-panel" role="dialog" aria-modal="true" aria-labelledby="price-panel-t" tabindex="-1" hidden>
         <div class="sheet__head"><div><p class="sheet__title" id="price-panel-t">Asking price</p></div><button class="iconbtn" type="button" data-pop-close>${icon("x", "Close asking price")}</button></div>
         <div class="sheet__body">
           <fieldset class="price-range" data-price-range data-lo="${pLo}" data-hi="${pHi}"><legend class="sr-only">Asking price</legend>
@@ -276,7 +276,7 @@ function collection() {
             <p class="note" id="price-help" aria-live="polite" data-price-help>Type an amount such as R5 000 000 or 5,000,000, or drag the handles.</p>
           </fieldset>
         </div>
-        <div class="sheet__foot"><button class="btn btn--line" type="button" data-price-clear>Any price</button><button class="btn btn--ink" type="button" data-pop-close><span data-apply-label>Show homes</span></button></div>
+        <div class="sheet__foot"><button class="btn btn--line" type="button" data-price-clear>Any price</button><button class="btn btn--ink" type="button" data-price-apply><span class="price__apply-m">Apply</span><span class="price__apply-d" data-apply-label>Show homes</span></button></div>
       </div>
     </div>
     ${selectCell("Bedrooms", "beds", opt("", "Any") + BEDS.map((n) => opt(n, n + "+")).join(""))}

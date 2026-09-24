@@ -4,7 +4,9 @@
 
   // Trap Tab inside `el`; returns a release function that restores focus (unless told not to).
   // `lock` adds the body scroll lock (full-screen sheets and menus; not anchored desktop popovers).
-  window.lhTrap = (el, opener, { lock = true } = {}) => {
+  // `pin` also fixes the body in place, which iOS Safari needs (it ignores overflow:hidden on body), and
+  // puts the page back at the same scroll position on release.
+  window.lhTrap = (el, opener, { lock = true, pin = false } = {}) => {
     const onKey = (e) => {
       if (e.key !== "Tab") return;
       const f = [...el.querySelectorAll(FOCUSABLE)].filter((n) => n.offsetParent !== null || n === document.activeElement);
@@ -15,10 +17,13 @@
     };
     el.addEventListener("keydown", onKey);
     if (lock) document.body.classList.add("is-locked");
+    const y = scrollY, b = document.body.style;
+    if (lock && pin) Object.assign(b, { position: "fixed", top: `-${y}px`, left: "0", right: "0" });
     return (restore = true) => {
       el.removeEventListener("keydown", onKey);
       if (lock) document.body.classList.remove("is-locked");
-      if (opener && restore) opener.focus();
+      if (lock && pin) { Object.assign(b, { position: "", top: "", left: "", right: "" }); scrollTo(0, y); }
+      if (opener && restore) opener.focus({ preventScroll: pin });
     };
   };
 
@@ -27,7 +32,7 @@
   // trigger; a click outside closes without stealing focus. `lock` = "always" | "sheet" (phones only).
   let openPop = null;
   const SHEET = matchMedia("(max-width: 760px)");
-  window.lhPop = (trigger, panel, { onOpen, onClose, focus, lock = "sheet" } = {}) => {
+  window.lhPop = (trigger, panel, { onOpen, onClose, focus, lock = "sheet", pin = false } = {}) => {
     let release = null;
     const isOpen = () => !panel.hidden;
     const outside = (e) => { if (!panel.contains(e.target) && !trigger.contains(e.target)) close(false); };
@@ -46,7 +51,8 @@
       openPop && openPop.close(false);
       panel.hidden = false;
       trigger.setAttribute("aria-expanded", "true");
-      release = window.lhTrap(panel, trigger, { lock: lock === "always" || SHEET.matches });
+      const locking = lock === "always" || SHEET.matches;
+      release = window.lhTrap(panel, trigger, { lock: locking, pin: pin && SHEET.matches });
       onOpen && onOpen();
       const target = (focus && focus()) || panel.querySelector(FOCUSABLE);
       target && target.focus({ preventScroll: true });

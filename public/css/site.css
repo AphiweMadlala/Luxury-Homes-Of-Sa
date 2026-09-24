@@ -387,7 +387,12 @@ html:has(.strip--collection) { scroll-padding-top: calc(var(--nav-h) + 110px); }
   .sheet__body { padding-inline: var(--gutter); }
   .sheet__foot { padding-inline: var(--gutter); }
   .filters .check, .sheet .check { min-height: 44px; }
-  .pop .sheet--pop { top: auto; max-height: 88dvh; border-top: 1px solid var(--ink); box-shadow: 0 0 0 100vmax rgba(18, 21, 23, .38); }
+  /* Price bottom sheet: --kb / --vvh come from visualViewport (properties.js), so with the iOS keyboard up
+     the sheet sits on top of it and never exceeds the visible height; the body scrolls inside. */
+  .pop .sheet--pop { top: auto; bottom: var(--kb, 0px); max-height: min(88dvh, calc(var(--vvh, 100dvh) - 8px)); border-top: 1px solid var(--ink); box-shadow: 0 0 0 100vmax rgba(18, 21, 23, .38); }
+  .price__panel:focus { outline: none; }
+  .price__panel .field .input { font-size: 16px; }
+  .price__apply-d { display: none; }
   @media (prefers-reduced-motion: no-preference) { .sheet--pop:not([hidden]), .sheet--side:not([hidden]) { animation: sheet-up .26s var(--ease); } @keyframes sheet-up { from { transform: translateY(24px); opacity: .5; } } }
 }
 
@@ -515,6 +520,8 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
   .form .row { grid-template-columns: 1fr; }
 }
 .stickybar { display: none; }
+.price__apply-m { display: none; }
+@media (max-width: 760px) { .price__apply-m { display: inline; } }
 @media (max-width: 900px) {
   .stickybar { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; justify-content: space-between; align-items: center; gap: 12px; padding: 10px var(--gutter) max(10px, env(safe-area-inset-bottom)); background: var(--surface); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform .3s var(--ease); }
   .stickybar.is-visible { transform: none; }
