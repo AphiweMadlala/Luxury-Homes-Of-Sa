@@ -164,3 +164,105 @@ Unchanged from the first pass:
 - a phone or WhatsApp number, if one exists;
 - the collaboration terms, and whether features are paid;
 - legal entity details for the footer.
+
+---
+
+# Typography and discovery pass QA
+
+Date: 2026-09-24. `dist/` served under `/Luxury-Homes-Of-Sa/` (local static server; Playwright's own `tests/serve.mjs` for the suite). Chromium 153 via Playwright 1.63. Data discipline unchanged: 104 properties, 37 for sale, 67 availability to be confirmed, same statuses, prices, agents and provenance; no re-scrape.
+
+## Automated gates
+
+| Gate | Result |
+|---|---|
+| `npm run validate` | Pass: 104 properties, 13 agents, 0 errors. New rule: an estate/suburb name under two cities fails the build (none do). |
+| `npm run build` | 104 property pages + 7 pages (+ `/list-with-us/` redirect) |
+| `node scripts/check_links.mjs` | 112 pages, 13,107 internal refs, **0 broken** |
+| `npm test` (Playwright, new) | **28 passed**, 0 failed (location picker 12, discovery and retained systems 9, typography and layout 7) |
+| Console errors / failed requests / horizontal overflow, 110 pages at 375 | **0 / 0 / 0** |
+| Overflow, fonts, nav height, heading clipping at 375, 390, 430, 768, 1024, 1440, 1920 (home, properties, property, locations, about) | Pass: no overflow, Bodoni and Manrope loaded, nav 64px, wordmark fits, no clipped headings, Archivo never requested |
+| Layout shift on cold load (home 1440/390, properties 1440, property 390) | CLS **0.0000** (Bodoni and Manrope preloaded) |
+| OS dark mode emulated | Palette unchanged (`rgb(241, 242, 239)` ground, `rgb(27, 32, 35)` ink) |
+| Mono audit (rendered) | Plex Mono appears only on labels, strip keys, the status tag, counters and the FX line |
+| Impeccable detector, served pages at 1440 and 390 | Before fixes 36 / 26 findings; after: **1 / 1**, the deliberate "Featured residence" dossier label |
+| WCAG contrast | ink 14.6:1, muted 5.6:1 on ground (6.1:1 on surface), brick text 5.6:1, plaster on brick 6.1:1 |
+
+## Location picker (Playwright)
+
+| Test | Result |
+|---|---|
+| Opens and closes by button, Escape, close button and outside click; focus restored to trigger; `aria-expanded` kept in sync | Pass |
+| Every listed location has more than 0 homes, and for **every** option (53), selecting it yields exactly the count shown | Pass |
+| Counts match the dataset for a province, city, district and estate | Pass |
+| Province → `?province=`, city → `?city=`, district → `?area=`, estate/suburb → `?place=` | Pass |
+| Deep links (`?city=Ballito`), legacy `?q=Zimbali Coastal Estate` and `?estate=` convert to the structured location | Pass |
+| Back/Forward restores location, label, bedrooms and results | Pass |
+| Default shows current locations only (Camps Bay, unconfirmed-only, absent); including unconfirmed switches tree, totals (104) and scope line, and marks results | Pass |
+| "Find a location" searches known locations only; "Atlantis" gives "No current homes in that location." and leaves results untouched | Pass |
+| Keyboard: Enter opens, focus on selected option, arrows/Home/End move, Enter selects, typing jumps to the finder, Tab trapped, Escape restores | Pass |
+| Mobile 390: full-screen sheet, rows ≥44px, internal scroll reaches the last option, body scroll locked and released, no overflow | Pass |
+
+## Homepage search and collection
+
+| Test | Result |
+|---|---|
+| Home strip: Ballito + R5m to R10m + 3+ beds → `/properties/?city=Ballito&pmin=5000000&pmax=10000000&beds=3`; collection label, price label, bedrooms and chips populated; count matches data | Pass |
+| Empty home search → full collection; every budget band holds current homes | Pass |
+| Strip shows Location, Price, Bedrooms, Property type; no Province/City selects remain; typed price normalises; More filters badge; chips; Clear all | Pass |
+| Keyword searches property, agent and reference; "Sandton" no longer matches as free text | Pass |
+| Property breadcrumb city link lands on the structured location with the right count | Pass |
+| Locations page: every register link is `?province|city|area|place=` with a count > 0; unconfirmed block links with `avail=all` | Pass |
+| Zero results name the filter to relax ("Removing “6+ bedrooms” shows 1 home.") and recover in one click; Show button reads "No matches" | Pass |
+| Gallery (lightbox, arrows, Escape), enquiry validation, mobile menu, `noindex, nofollow` | Pass |
+
+## Impeccable review
+
+**Critique** (design review + detector as two isolated assessments). Heuristics **27/40** before fixes. Answers to the brief's questions:
+
+1. **Luxury typography?** Yes at display sizes; Bodoni at small sizes (picker rows, sub-24px heads) was spindly. **Fixed:** picker rows moved to Manrope; Bodoni reserved for ≥22px; large settings held at opsz 30.
+2. **Modern South African architecture?** Partly. A Didone leans fashion; opsz 30, the brick accent, square geometry and the particulars system keep it architectural.
+3. **Not Durban Luxe?** Yes: no bronze or warm metallic.
+4. **Not Exclusive Cape Town?** Yes: no navy/gold, no pills, split hero with the search strip below it, zero radius. Residual genre risk (serif + sans) noted.
+5. **Search easier?** Yes, clearly: structured levels with counts and context beat free text plus province/city selects.
+6. **Zero-result location?** Never on its own (every node ≥1; search filters known locations only). In combination with other filters, yes. **Fixed:** the empty state names the filter to relax with a one-step remove, and the Show button says "No matches". Picker counts stay inventory-based by design (the brief forbids showing 0 in the selector).
+7. **Homepage editorial, not portal?** Yes; the 3-field strip sits after the hero.
+8. **Mono overused?** Largely fixed; the long "Property, agent or reference" label was still mono caps. **Fixed** (Manrope).
+9. **More memorable?** Somewhat. The lockup is clean but conventional; the memorable assets remain the Pictured block and the Locations register.
+10. **Mobile quality?** Home and property hold up. **Fixed:** price is a bottom sheet (was a mostly empty full screen); keyword and sort share one row.
+
+**Audit** (technical):
+
+| Dimension | Score | Key finding |
+|---|---|---|
+| Accessibility | 3 | Dialog/listbox semantics, roving focus, focus restore and trap. **Fixed:** focus hidden under the sticky strip (`scroll-padding-top`, WCAG 2.4.11); brick focus ring on fields read as an error (now ink); wordmark name now contains its visible text (2.5.3). |
+| Performance | 4 | Fonts cut from 120 KB to 78 KB; CLS 0; no new libraries. |
+| Responsive | 4 | 375–1920 clean; strip switches to two columns below 900px (it truncated at 768). |
+| Theming | 3 | One token set; a few literal colours remain in the lightbox and hero placeholder (unchanged). |
+| Implementation integrity | 3 | Detector 36/26 → 1/1; the remaining kicker is deliberate. |
+| **Total** | **17/20** | Good |
+
+**Polish** fixes applied:
+- small labels ≥11px;
+- Bodoni card-title and statement leading loosened to 1.3;
+- fine-print measures ≤66ch;
+- popovers use a 1px ink border instead of a hairline plus diffuse shadow;
+- one chevron for all selects;
+- clearer empty-state copy.
+
+Not changed, deliberately:
+- the "Featured residence" dossier label (the only eyebrow on the site);
+- Rates, levies and erf are still unglossed.
+
+## Follow-up (same day)
+
+The open items from the review were closed:
+
+| Item | Change | Verified |
+|---|---|---|
+| Picker counts ignored other filters (P1): "Sandton 6" beside "0 homes" | Counts are recomputed against all non-location filters; locations with no match drop out (selected one kept); scope line says "matching your other filters". Supersedes the "not changed" note above. | New test: with `pmax=5000000`, every offered location's count equals its results, and the total matches the dataset |
+| Wordmark conventional (brand question 9) | A short face-brick rule leads "of South Africa", reusing the hero issue-line device; still typography-only | Nav 64px, lockup 153×37 |
+| Mobile collection showed controls before any photo | Tighter header and results spacing on phones | First card top 725px → 588px at 390×844 |
+| Property breadcrumb wrapped on phones | Home and province hidden below 600px | One line (22px) for the longest estate names |
+| Sort select clipped "Recommended" on phones | Column widened | Full label visible |
+
+Gates after the follow-up: validate 0 errors; build OK; links 0 broken; Playwright **29 passed**.

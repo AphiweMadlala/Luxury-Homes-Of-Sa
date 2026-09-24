@@ -81,6 +81,17 @@ for (const p of props) {
   }
 }
 
+// structured locations: the picker counts homes per node and the collection filters by the same keys
+// (place = estate || suburb), so each place name must sit under exactly one city
+// (and each place under one area) or a count could disagree with its results. Districts are single-city
+// by construction (scripts/site/lib.mjs districts()).
+const seat = {};
+for (const p of props) {
+  const pk = p.estate || p.suburb;
+  if (pk) (seat["place:" + pk] ??= new Set()).add(`${p.city} / ${p.area}`);
+}
+for (const [k, v] of Object.entries(seat)) if (v.size > 1) err("locations", `${k} appears under ${[...v].join(" and ")}`);
+
 if (warnings.length) console.log(`${warnings.length} warnings (missing optional data, expected):\n  ` + warnings.slice(0, 12).join("\n  ") + (warnings.length > 12 ? `\n  ... ${warnings.length - 12} more` : ""));
 if (errors.length) {
   console.error(`\n${errors.length} VALIDATION ERRORS:\n  ` + errors.join("\n  "));

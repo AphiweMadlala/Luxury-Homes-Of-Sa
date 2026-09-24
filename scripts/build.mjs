@@ -1,7 +1,7 @@
 // Static site generator: data/*.json -> dist/. Run `npm run build` (validation runs first).
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync } from "node:fs";
 import { dirname } from "node:path";
-import { cfg, u, abs, esc, tidy, rand, randShort, copyEmail, priceLabel, num, m2, fmtDate, place, placeShort, icon, picture, specItems, statusBadge, card, layout } from "./site/lib.mjs";
+import { cfg, u, abs, esc, tidy, rand, randShort, copyEmail, priceLabel, num, m2, fmtDate, place, placeShort, placeKey, locationTree, locHref, icon, picture, specItems, statusBadge, card, layout } from "./site/lib.mjs";
 
 const read = (f) => JSON.parse(readFileSync(f, "utf8"));
 const props = read("data/properties.json");
@@ -111,7 +111,7 @@ function home() {
       <span class="price">${esc(priceLabel(hero))}</span>
     </a>
     <div class="hero__copy">
-      <p class="issue fig">${forSale.length} homes for sale in ${new Set(forSale.map((q) => q.province)).size} provinces</p>
+      <p class="issue">${forSale.length} homes for sale in ${new Set(forSale.map((q) => q.province)).size} provinces</p>
       <h1 class="display" id="hero-h">South Africa’s notable homes, for sale.</h1>
       <p class="lede">A national property publication. Explore residences on the market today and speak directly to the agents marketing them.</p>
       <div class="hero__actions"><a class="btn btn--primary" href="${u("properties/")}">Explore properties ${icon("arrow-right")}</a></div>
@@ -120,6 +120,18 @@ function home() {
   <figure class="hero__figure">
     ${picture(hero, media[hero.slug], 0, { sizes: "(min-width: 900px) 58vw, 100vw", eager: true, alt: `${hero.title}, ${place(hero)}` })}
   </figure>
+</section>
+
+<section class="finder" aria-labelledby="find-h">
+  <div class="wrap finder__in">
+    <h2 class="finder__h" id="find-h">Search ${forSale.length} homes</h2>
+    <form class="strip strip--home" action="${u("properties/")}" data-home-search>
+      ${locPicker("home-loc")}
+      ${selectCell("Price", "price", `<option value="">Any price</option>${homeBands().map(([lo, hi, l]) => `<option value="${lo || ""}-${hi || ""}">${l}</option>`).join("")}`)}
+      ${selectCell("Bedrooms", "beds", `<option value="">Any</option>${BEDS.map((n) => `<option value="${n}">${n}+</option>`).join("")}`)}
+      <button class="btn btn--primary strip__go" type="submit">Find a home ${icon("arrow-right")}</button>
+    </form>
+  </div>
 </section>
 
 <section class="section" aria-labelledby="cur-h">
@@ -153,7 +165,7 @@ function home() {
         <p class="label dossier__kicker">Featured residence</p>
         <h2 class="h2 dossier__title" id="dos-h">${esc(dos.title)}</h2>
         <p class="dossier__place">${esc(place(dos))}, ${esc(dos.province)}</p>
-        <dl class="sheet">
+        <dl class="particulars-sheet">
           <div><dt>Asking price</dt><dd class="price">${esc(priceLabel(dos))}</dd></div>
           ${specItems(dos, { long: true }).map(([v, k]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join("")}
           ${dos.leviesZAR != null ? `<div><dt>Levies</dt><dd>${esc(rand(dos.leviesZAR))}</dd></div>` : ""}
@@ -183,8 +195,15 @@ ${marketsSection(mks)}
   </div>
 </section>
 
-${closing()}`;
-  write("index.html", layout({ title: "", description: `${forSale.length} notable homes for sale across South Africa, featured by Luxury Homes of SA. Asking prices, particulars and direct contact with the marketing agent.`, path: "", body, image: heroImg(hero), scripts: [] }));
+${closing()}
+<script type="application/json" id="home-search-data">${JSON.stringify({ tree: LOC.current, total: forSale.length }).replace(/</g, "\\u003c")}</script>`;
+  write("index.html", layout({ title: "", description: `${forSale.length} notable homes for sale across South Africa, featured by Luxury Homes of SA. Asking prices, particulars and direct contact with the marketing agent.`, path: "", body, image: heroImg(hero), scripts: ["location.js"] }));
+}
+
+// Homepage budget bands, offered only where current inventory exists.
+function homeBands() {
+  return [[null, 5e6, "Up to R5m"], [5e6, 10e6, "R5m to R10m"], [10e6, 20e6, "R10m to R20m"], [20e6, null, "R20m and above"]]
+    .filter(([lo, hi]) => forSale.some((p) => p.priceZAR && (!lo || p.priceZAR >= lo) && (!hi || p.priceZAR <= hi)));
 }
 
 function closing(heading = "Looking for something specific?") {
@@ -199,74 +218,105 @@ function closing(heading = "Looking for something specific?") {
 // ============================ COLLECTION ============================
 function indexRecord(p) {
   return {
-    s: p.slug, t: tidy(p.title), pl: tidy(place(p)), pv: p.province, c: p.city, a: p.area, sb: p.suburb, e: p.estate, ty: p.propertyType,
+    s: p.slug, t: tidy(p.title), pl: tidy(place(p)), pv: p.province, c: p.city, a: p.area, lp: placeKey(p), dv: p.development, ty: p.propertyType,
     pr: p.priceZAR, bd: p.bedrooms, ba: p.bathrooms, g: p.garages, pk: p.parking, fl: p.floorSizeM2, st: p.status, ls: p.lastSeenAt,
     f: FILTER_FEATURES.filter((k) => p.featureFlags[k]), ag: p.agent ? tidy(agents[p.agent].name) : null, ref: p.reference,
     w: media[p.slug].images[0].width, h: media[p.slug].images[0].height,
   };
 }
+// Location trees for both availability states: the default collection offers current locations only.
+const LOC = { current: locationTree(forSale, props), all: locationTree(props, props) };
+const typesIn = (list) => [...new Set(list.map((p) => p.propertyType))].sort();
+
+// The picker trigger and its dialog. The list itself is rendered by public/js/location.js from the tree.
+const locPicker = (id) => `<div class="loc" data-loc>
+  <button class="cell cell--loc" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="${id}" data-loc-open><span class="cell__k">Location</span><span class="cell__v" data-loc-label>All South Africa</span>${icon("caret-down")}</button>
+  <div class="sheet sheet--pop loc__panel" id="${id}" role="dialog" aria-modal="true" aria-labelledby="${id}-t" hidden data-loc-panel>
+    <div class="sheet__head"><div><p class="sheet__title" id="${id}-t">Location</p><p class="sheet__scope" data-loc-scope>Homes currently for sale</p></div><button class="iconbtn" type="button" data-pop-close>${icon("x", "Close location")}</button></div>
+    <div class="loc__find" data-loc-findwrap><label class="sr-only" for="${id}-f">Find a location</label>${icon("magnifying-glass")}<input class="input" id="${id}-f" type="search" placeholder="Find a location" autocomplete="off" spellcheck="false" aria-controls="${id}-l" data-loc-find></div>
+    <div class="sheet__body"><ul class="loc__list" id="${id}-l" role="listbox" aria-labelledby="${id}-t" data-loc-list></ul><p class="loc__none" role="status" data-loc-none hidden></p></div>
+  </div>
+</div>`;
+const selectCell = (label, name, options) => `<label class="cell cell--select"><span class="cell__k">${label}</span><select class="cell__select" name="${name}">${options}</select></label>`;
+const BEDS = [1, 2, 3, 4, 5, 6];
+
 function collection() {
-  const provinces = [...new Set(props.map((p) => p.province))].sort();
-  const types = [...new Set(props.map((p) => p.propertyType))].sort();
+  const types = typesIn(forSale);
   // Price-range bounds come from the dataset (all priced homes), rounded outward to sensible figures.
   const priced = props.map((p) => p.priceZAR).filter(Boolean);
   const pLo = Math.floor(Math.min(...priced) / 100000) * 100000;
   const pHi = Math.ceil(Math.max(...priced) / 1e6) * 1e6;
   const opt = (v, l) => `<option value="${v}">${l}</option>`;
   const featureChecks = FILTER_FEATURES.map((k) => `<label class="check"><input type="checkbox" name="f" value="${k}"> ${FEATURE_LABELS[k]}</label>`).join("");
-  const initial = props.filter((p) => p.status === "for-sale");
+  const initial = forSale;
   const body = `
-<div class="wrap">
+<div class="wrap" data-collection>
   <header class="phead">
     <nav aria-label="Breadcrumb"><ol class="crumbs meta"><li><a href="${u("")}">Home</a></li><li aria-current="page">Properties</li></ol></nav>
     <h1 class="display page-title">Properties for sale</h1>
     <p class="lede">Every home currently for sale on Luxury Homes of SA, with asking prices and particulars as published by the marketing agent.</p>
   </header>
-  <form class="toolbar" role="search" data-toolbar onsubmit="return false">
-    <label class="field"><span>Search by area, estate, property, agent or reference</span><input class="input" type="search" name="q" autocomplete="off" placeholder="e.g. Zimbali or Sandton"></label>
-    <button class="btn btn--line filter-toggle" type="button" data-filters-open aria-controls="filters" aria-expanded="false">${icon("sliders-horizontal")} Filters <span data-filter-count></span></button>
-    <label class="field sort-field"><span>Sort</span><select class="select" name="sort"><option value="rec">Recommended</option><option value="asc">Price: low to high</option><option value="desc">Price: high to low</option></select></label>
-  </form>
-  <div class="collection">
-    <aside class="filters" id="filters" aria-label="Filters" data-filters>
-      <div class="drawer__head"><p class="h3">Filters</p><button class="iconbtn" type="button" data-filters-close>${icon("x", "Close filters")}</button></div>
+  <div class="strip strip--collection" role="search" aria-label="Find a home">
+    ${locPicker("loc-panel")}
+    <div class="pop" data-price>
+      <button class="cell" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="price-panel" data-price-open><span class="cell__k">Price</span><span class="cell__v" data-price-label>Any price</span>${icon("caret-down")}</button>
+      <div class="sheet sheet--pop price__panel" id="price-panel" role="dialog" aria-modal="true" aria-labelledby="price-panel-t" hidden>
+        <div class="sheet__head"><div><p class="sheet__title" id="price-panel-t">Asking price</p></div><button class="iconbtn" type="button" data-pop-close>${icon("x", "Close asking price")}</button></div>
+        <div class="sheet__body">
+          <fieldset class="price-range" data-price-range data-lo="${pLo}" data-hi="${pHi}"><legend class="sr-only">Asking price</legend>
+            <div class="pair">
+              <label class="field"><span>Minimum</span><input class="input num" name="pmin" inputmode="numeric" autocomplete="off" placeholder="${esc(rand(pLo))}" aria-describedby="price-help"></label>
+              <label class="field"><span>Maximum</span><input class="input num" name="pmax" inputmode="numeric" autocomplete="off" placeholder="${esc(rand(pHi))}" aria-describedby="price-help"></label>
+            </div>
+            <div class="range" data-range>
+              <div class="range__track" aria-hidden="true"><div class="range__fill" data-range-fill></div></div>
+              <input class="range__input" type="range" min="0" max="1000" step="1" value="0" data-range-min aria-label="Minimum asking price">
+              <input class="range__input" type="range" min="0" max="1000" step="1" value="1000" data-range-max aria-label="Maximum asking price">
+            </div>
+            <p class="note" id="price-help" aria-live="polite" data-price-help>Type an amount such as R5 000 000 or 5,000,000, or drag the handles.</p>
+          </fieldset>
+        </div>
+        <div class="sheet__foot"><button class="btn btn--line" type="button" data-price-clear>Any price</button><button class="btn btn--ink" type="button" data-pop-close><span data-apply-label>Show homes</span></button></div>
+      </div>
+    </div>
+    ${selectCell("Bedrooms", "beds", opt("", "Any") + BEDS.map((n) => opt(n, n + "+")).join(""))}
+    ${selectCell("Property type", "type", opt("", "Any type") + types.map((t) => opt(t, t)).join(""))}
+    <button class="cell cell--more" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="filters" data-filters-open>${icon("sliders-horizontal")}<span>More filters</span><span class="cell__badge" data-filter-count></span></button>
+    <button class="btn btn--ink strip__go" type="button" data-show>Show ${initial.length} homes</button>
+  </div>
+  <div class="sheet sheet--side filters" id="filters" role="dialog" aria-modal="true" aria-labelledby="filters-t" hidden data-filters>
+    <div class="sheet__head"><div><p class="sheet__title" id="filters-t">More filters</p></div><button class="iconbtn" type="button" data-pop-close>${icon("x", "Close filters")}</button></div>
+    <div class="sheet__body filters__body">
       <fieldset><legend>Availability</legend>
         <label class="check"><input type="radio" name="avail" value="current" checked> Currently for sale</label>
         <label class="check"><input type="radio" name="avail" value="all"> Include availability to be confirmed</label>
       </fieldset>
-      <label class="field"><span>Province</span><select class="select" name="province"><option value="">All provinces</option>${provinces.map((p) => opt(esc(p), esc(p))).join("")}</select></label>
-      <label class="field"><span>City or town</span><select class="select" name="city"><option value="">All cities</option></select></label>
-      <label class="field"><span>Property type</span><select class="select" name="type"><option value="">Any type</option>${types.map((t) => opt(t, t)).join("")}</select></label>
-      <fieldset class="price-range" data-price-range data-lo="${pLo}" data-hi="${pHi}"><legend>Asking price</legend>
-        <div class="pair">
-          <label class="field"><span>Minimum</span><input class="input num" name="pmin" inputmode="numeric" autocomplete="off" placeholder="${esc(rand(pLo))}" aria-describedby="price-help"></label>
-          <label class="field"><span>Maximum</span><input class="input num" name="pmax" inputmode="numeric" autocomplete="off" placeholder="${esc(rand(pHi))}" aria-describedby="price-help"></label>
-        </div>
-        <div class="range" data-range>
-          <div class="range__track" aria-hidden="true"><div class="range__fill" data-range-fill></div></div>
-          <input class="range__input" type="range" min="0" max="1000" step="1" value="0" data-range-min aria-label="Minimum asking price">
-          <input class="range__input" type="range" min="0" max="1000" step="1" value="1000" data-range-max aria-label="Maximum asking price">
-        </div>
-        <p class="note" id="price-help" aria-live="polite" data-price-help>Type an amount such as R5 000 000 or 5,000,000, or drag the handles.</p>
-      </fieldset>
       <div class="pair">
-        <label class="field"><span>Bedrooms</span><select class="select" name="beds"><option value="">Any</option>${[1, 2, 3, 4, 5, 6].map((n) => opt(n, n + "+")).join("")}</select></label>
         <label class="field"><span>Bathrooms</span><select class="select" name="baths"><option value="">Any</option>${[1, 2, 3, 4, 5].map((n) => opt(n, n + "+")).join("")}</select></label>
+        <label class="field"><span>Garages</span><select class="select" name="garages"><option value="">Any</option>${[1, 2, 3, 4].map((n) => opt(n, n + "+")).join("")}</select></label>
       </div>
-      <label class="field"><span>Garages</span><select class="select" name="garages"><option value="">Any</option>${[1, 2, 3, 4].map((n) => opt(n, n + "+")).join("")}</select></label>
       <fieldset><legend>Features</legend>${featureChecks}</fieldset>
       <p class="note">Features are filtered on what the listing text states, not on photographs.</p>
-      <div class="drawer__foot"><button class="btn btn--line" type="button" data-reset>Reset</button><button class="btn btn--ink" type="button" data-filters-close><span data-apply-label>Show homes</span></button></div>
-    </aside>
-    <section aria-labelledby="res-h">
-      <div class="chips" data-chips aria-label="Active filters" hidden></div>
-      <div class="results-head"><h2 class="meta" id="res-h" aria-live="polite" data-count>${initial.length} homes</h2></div>
-      <div class="results" data-results>${initial.map((p, i) => card(p, media[p.slug], { eager: i < 2 })).join("")}</div>
-    </section>
+    </div>
+    <div class="sheet__foot"><button class="btn btn--line" type="button" data-reset>Clear all</button><button class="btn btn--ink" type="button" data-pop-close><span data-apply-label>Show homes</span></button></div>
   </div>
+  <div class="chips" data-chips aria-label="Active filters" hidden></div>
+  <div class="results-head">
+    <h2 class="results-count" id="res-h" aria-live="polite" tabindex="-1" data-count>${initial.length} homes currently for sale</h2>
+    <form class="results-tools" role="search" aria-label="Property, agent or reference" onsubmit="return false">
+      <label class="field field--inline keyword"><span>Property, agent or reference</span><span class="keyword__in">${icon("magnifying-glass")}<input class="input" type="search" name="q" autocomplete="off" placeholder="e.g. hangar or Jacqui"></span></label>
+      <label class="field field--inline sort-field"><span>Sort</span><select class="select" name="sort"><option value="rec">Recommended</option><option value="asc">Price: low to high</option><option value="desc">Price: high to low</option></select></label>
+    </form>
+  </div>
+  <section class="collection" aria-labelledby="res-h">
+    <div class="results" data-results>${initial.map((p, i) => card(p, media[p.slug], { eager: i < 2 })).join("")}</div>
+  </section>
 </div>
-<script type="application/json" id="index-data">${JSON.stringify({ base: cfg.BASE_PATH, items: props.map(indexRecord) }).replace(/</g, "\\u003c")}</script>`;
-  write("properties/index.html", layout({ title: "Properties for sale", description: `Search ${forSale.length} homes for sale across South Africa by province, city, price, bedrooms and features.`, path: "properties/", body, scripts: ["properties.js"] }));
+<script type="application/json" id="index-data">${JSON.stringify({
+    base: cfg.BASE_PATH, items: props.map(indexRecord),
+    trees: LOC, totals: { current: forSale.length, all: props.length }, types: { current: types, all: typesIn(props) },
+  }).replace(/</g, "\\u003c")}</script>`;
+  write("properties/index.html", layout({ title: "Properties for sale", description: `Search ${forSale.length} homes for sale across South Africa by location, price, bedrooms and property type.`, path: "properties/", body, scripts: ["location.js", "properties.js"] }));
 }
 
 // ============================ PROPERTY ============================
@@ -458,32 +508,37 @@ ${related.length ? `<section class="section related" aria-labelledby="rel-h"><di
 }
 
 // ============================ LOCATIONS ============================
+// The register is the same inventory tree the location picker uses: every province, city, district and
+// estate/suburb is a direct link into the collection, and nothing with zero current homes is listed.
+// Locations that exist only in unconfirmed inventory sit in a clearly secondary block.
 function locations() {
-  const tree = {};
-  for (const p of forSale) {
-    const pv = (tree[p.province] ??= { n: 0, cities: {} });
-    pv.n++;
-    const c = (pv.cities[p.city] ??= { n: 0, places: {} });
-    c.n++;
-    const k = p.estate || p.suburb || p.area;
-    if (k && k !== p.city) c.places[k] = (c.places[k] || 0) + 1;
-  }
-  const toConfirm = props.length - forSale.length;
-  const provs = Object.entries(tree).sort((a, b) => b[1].n - a[1].n).map(([pv, o]) => `
-  <section class="loc-prov" aria-labelledby="pv-${pv.replace(/\W+/g, "-")}">
-    <div><h2 class="h2" id="pv-${pv.replace(/\W+/g, "-")}"><a href="${u(`properties/?province=${encodeURIComponent(pv)}`)}" style="text-decoration:none">${esc(pv)}</a></h2><p class="fig" style="margin-top:8px">${o.n} for sale</p></div>
-    <div class="loc-cities">${Object.entries(o.cities).sort((a, b) => b[1].n - a[1].n).map(([c, co]) => `
-      <div class="loc-city"><h3><a href="${u(`properties/?city=${encodeURIComponent(c)}`)}" style="text-decoration:none">${esc(c)}</a></h3><p class="fig">${co.n} for sale</p>
-      ${Object.keys(co.places).length ? `<ul>${Object.entries(co.places).sort((a, b) => b[1] - a[1]).map(([pl, pn]) => `<li><a href="${u(`properties/?q=${encodeURIComponent(pl)}`)}"><span>${esc(pl)}</span><span class="fig">${pn}</span></a></li>`).join("")}</ul>` : ""}</div>`).join("")}
+  const count = (n, word = "for sale") => `<span class="loc-n num">${n}<span class="sr-only"> ${n === 1 ? "home" : "homes"} ${word}</span></span>`;
+  const leaf = (x) => `<li><a href="${locHref(x)}"><span>${esc(x.v)}</span>${count(x.n)}</a></li>`;
+  const provs = LOC.current.map((pv) => {
+    const id = "pv-" + pv.v.replace(/\W+/g, "-");
+    return `
+  <section class="loc-prov" aria-labelledby="${id}">
+    <div class="loc-prov__head"><h2 class="h2" id="${id}"><a href="${locHref(pv)}">${esc(pv.v)}</a></h2><p class="meta">${pv.n} ${pv.n === 1 ? "home" : "homes"} for sale</p></div>
+    <div class="loc-cities">${pv.kids.map((c) => `
+      <div class="loc-city"><h3><a href="${locHref(c)}"><span>${esc(c.v)}</span>${count(c.n)}</a></h3>
+      ${c.kids.length ? `<ul>${c.kids.map((k) => k.k === "area" ? `<li class="loc-area"><a href="${locHref(k)}"><span>${esc(k.v)}</span>${count(k.n)}</a><ul>${k.kids.map(leaf).join("")}</ul></li>` : leaf(k)).join("")}</ul>` : ""}</div>`).join("")}
     </div>
-  </section>`).join("");
+  </section>`;
+  }).join("");
+  // Unconfirmed-only view: count homes awaiting confirmation per city, linked to the collection including them.
+  const unconfirmed = locationTree(props.filter((p) => p.status !== "for-sale"), props);
+  const toConfirm = props.length - forSale.length;
+  const later = unconfirmed.map((pv) => `<div class="loc-later__prov"><h3 class="loc-later__h">${esc(pv.v)}</h3><ul>${pv.kids.map((c) => `<li><a href="${locHref(c, "&avail=all")}"><span>${esc(c.v)}</span><span class="loc-n num">${c.n}<span class="sr-only"> to be confirmed</span></span></a></li>`).join("")}</ul></div>`).join("");
   const body = `<div class="wrap"><header class="phead"><nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="${u("")}">Home</a></li><li aria-current="page">Locations</li></ol></nav>
-  <h1 class="display page-title">Locations</h1><p class="lede">Where the homes currently for sale are, by market, province, city and estate. You don’t need to know an estate name to find a home.</p></header></div>
+  <h1 class="display page-title">Locations</h1><p class="lede">Where the homes currently for sale are, by market, province, city and estate. Every place listed has at least one home for sale today.</p></header></div>
   ${marketsSection(markets(), { heading: "Markets", id: "mkt-h", lede: false }).replace(/<div class="section-foot">[\s\S]*?<\/div>\n  <\/div>\n<\/section>$/, "</div>\n</section>")}
-  <div class="wrap"><h2 class="h2" style="padding-top:8px">Every province, city and estate</h2>
+  <div class="wrap"><div class="section-head"><h2 class="h2">Every province, city and estate</h2><p class="body-copy">Choose any level: a province, a city, a district such as Sandton, or a single estate or suburb. Figures are homes currently for sale.</p></div>
   <div class="loc-tree">${provs}</div>
-  <p class="note" style="padding-block:28px 96px;border-top:1px solid var(--line);max-width:none"><span style="display:block;max-width:72ch">A further ${toConfirm} homes featured earlier in the year are awaiting confirmation that they are still on the market. <a class="link" href="${u("properties/?avail=all")}">Browse them, marked availability to be confirmed</a>.</span></p></div>`;
-  write("locations/index.html", layout({ title: "Locations", description: "Homes for sale across South Africa by market, province, city, suburb and estate.", path: "locations/", body }));
+  <section class="loc-later" aria-labelledby="later-h">
+    <div class="loc-later__intro"><h2 class="h3" id="later-h">Availability to be confirmed</h2><p class="note">A further ${toConfirm} homes featured earlier in the year are awaiting confirmation that they are still on the market. Figures are those homes only; each link opens the collection including them, clearly marked.</p></div>
+    <div class="loc-later__grid">${later}</div>
+  </section></div>`;
+  write("locations/index.html", layout({ title: "Locations", description: "Homes for sale across South Africa by market, province, city, district, suburb and estate.", path: "locations/", body }));
 }
 
 // ============================ CONTENT PAGES ============================
@@ -633,7 +688,6 @@ about();
 collaborate();
 contact();
 notFound();
-writeFileSync(`${OUT}/favicon.svg`, `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="#1b2023"/><text x="16" y="21.5" font-family="Arial,sans-serif" font-size="13" font-weight="700" text-anchor="middle" fill="#f1f2ef">SA</text></svg>`);
 writeFileSync(`${OUT}/robots.txt`, cfg.PROPOSAL_MODE ? "User-agent: *\nDisallow: /\n" : `User-agent: *\nAllow: /\nSitemap: ${abs("sitemap.xml")}\n`);
 if (!cfg.PROPOSAL_MODE) {
   const urls = ["", "properties/", "locations/", "about/", "collaborate/", "contact/", ...props.map((p) => `properties/${p.slug}/`)];

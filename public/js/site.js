@@ -2,8 +2,9 @@
 (() => {
   const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])';
 
-  // Trap Tab inside `el`; returns a release function that restores focus.
-  window.lhTrap = (el, opener) => {
+  // Trap Tab inside `el`; returns a release function that restores focus (unless told not to).
+  // `lock` adds the body scroll lock (full-screen sheets and menus; not anchored desktop popovers).
+  window.lhTrap = (el, opener, { lock = true } = {}) => {
     const onKey = (e) => {
       if (e.key !== "Tab") return;
       const f = [...el.querySelectorAll(FOCUSABLE)].filter((n) => n.offsetParent !== null || n === document.activeElement);
@@ -13,12 +14,51 @@
       else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
     };
     el.addEventListener("keydown", onKey);
-    document.body.classList.add("is-locked");
-    return () => {
+    if (lock) document.body.classList.add("is-locked");
+    return (restore = true) => {
       el.removeEventListener("keydown", onKey);
-      document.body.classList.remove("is-locked");
-      if (opener) opener.focus();
+      if (lock) document.body.classList.remove("is-locked");
+      if (opener && restore) opener.focus();
     };
+  };
+
+  // Popover / sheet dialog: anchored to its trigger on larger screens, a full-screen sheet on phones
+  // (CSS decides the geometry). One open at a time; Escape and the close buttons restore focus to the
+  // trigger; a click outside closes without stealing focus. `lock` = "always" | "sheet" (phones only).
+  let openPop = null;
+  const SHEET = matchMedia("(max-width: 760px)");
+  window.lhPop = (trigger, panel, { onOpen, onClose, focus, lock = "sheet" } = {}) => {
+    let release = null;
+    const isOpen = () => !panel.hidden;
+    const outside = (e) => { if (!panel.contains(e.target) && !trigger.contains(e.target)) close(false); };
+    function close(restore = true) {
+      if (!isOpen()) return;
+      panel.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      document.removeEventListener("pointerdown", outside, true);
+      if (openPop === api) openPop = null;
+      release && release(restore);
+      release = null;
+      onClose && onClose();
+    }
+    function open() {
+      if (isOpen()) return;
+      openPop && openPop.close(false);
+      panel.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      release = window.lhTrap(panel, trigger, { lock: lock === "always" || SHEET.matches });
+      onOpen && onOpen();
+      const target = (focus && focus()) || panel.querySelector(FOCUSABLE);
+      target && target.focus({ preventScroll: true });
+      document.addEventListener("pointerdown", outside, true);
+      openPop = api;
+    }
+    const api = { open, close, isOpen };
+    trigger.addEventListener("click", () => (isOpen() ? close() : open()));
+    panel.addEventListener("keydown", (e) => { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } });
+    panel.querySelectorAll("[data-pop-close]").forEach((b) => b.addEventListener("click", () => close()));
+    SHEET.addEventListener("change", () => close(false));
+    return api;
   };
 
   // Mobile menu

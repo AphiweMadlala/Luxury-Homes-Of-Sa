@@ -4,3 +4,5 @@ data/raw/video/
 dist/
 .playwright-cli/
 .impeccable/live/
+test-results/
+playwright-report/

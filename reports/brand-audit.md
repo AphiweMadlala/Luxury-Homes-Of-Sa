@@ -23,10 +23,10 @@ Each conclusion is marked **EXISTING BRAND ELEMENT** (observed in the Instagram 
 | Decision | Rationale | Tag |
 |---|---|---|
 | "Particulars" concept: architectural sales particulars as an editorial publication | Mirrors the spec-sheet caption discipline; ownership rather than stays | NEW WEBSITE INTERPRETATION |
-| Typographic wordmark "Luxury Homes of [SA]", with SA in a charcoal mono tile | There is no logo to preserve; the tile echoes the flag-suffix habit without using a flag | NEW WEBSITE INTERPRETATION |
+| Typographic wordmark "Luxury Homes / of South Africa" (Bodoni Moda over Manrope capitals; typography pass) | There is no logo to preserve; a type-only lockup avoids inventing a graphic mark. It replaced the earlier boxed mono "SA" tile | NEW WEBSITE INTERPRETATION |
 | Ground `#f1f2ef` (render plaster), ink `#1b2023` (anodised aluminium) | Taken from the dominant materials in the photography; cool, so it doesn't fight blue skies | NEW WEBSITE INTERPRETATION |
 | Single accent `#a1421f` face-brick | Face-brick is a ubiquitous South African building material and the complement of the feed's blues, so it sits beside the photography without competing. Avoids the black/gold, beige/brass, navy and estate-agent-green defaults. | NEW WEBSITE INTERPRETATION |
-| Archivo variable (expanded widths for display) + IBM Plex Mono for figures | Architectural signage feel; mono carries the spec-sheet precision of the captions; completely distinct from Fraunces + Jost | NEW WEBSITE INTERPRETATION |
+| Bodoni Moda (editorial display, opsz 30) + Manrope (functional) + IBM Plex Mono for micro-labels (typography pass; replaced Archivo) | Luxury residential editorial voice with precise sales particulars beneath; mono keeps the spec-sheet precision in small labels only; distinct from Fraunces + Jost | NEW WEBSITE INTERPRETATION |
 | Multi-currency line under price, dated "as published" | Preserves an existing brand habit honestly: the historical conversions are shown with their date and marked indicative | EXISTING ELEMENT, NEW PRESENTATION |
 | Square geometry (radius 0) | Architectural drawings, not holiday softness; also differentiates from Exclusive Cape Town's pill buttons | NEW WEBSITE INTERPRETATION |
 | Features as a hairline-bulleted two-column list | Mirrors the ✔️ checklist without emoji | NEW WEBSITE INTERPRETATION |

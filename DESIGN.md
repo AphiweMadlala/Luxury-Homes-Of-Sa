@@ -8,35 +8,44 @@ Derived from the shipped build (`public/css/site.css`, `scripts/site/lib.mjs`, `
 
 ## Tokens
 
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `--ground` | `#f1f2ef` render plaster | `#121517` | page |
-| `--surface` | `#fafaf8` | `#191d20` | enquiry aside, dossier panel, inputs |
-| `--sunk` | `#e5e7e3` | `#22272a` | image placeholders, unknown-status tag |
-| `--ink` | `#1b2023` anodised aluminium | `#e8eae6` | text, ink buttons, SA tile |
-| `--ink-2` | `#384045` | `#c9cdc9` | body copy |
-| `--muted` | `#586165` | `#9ba3a6` | meta, labels, notes (≥5:1 on all grounds) |
-| `--line` | `#cfd3ce` | `#2f3539` | section rules (decorative) |
-| `--line-strong` | `#7b837f` | `#6e7875` | control borders (≥3:1) |
-| `--brick` | `#a1421f` face-brick | `#e27b55` | **the only accent**: primary CTA, focus ring, feature markers, highlight rule |
-| `--scrim` | `rgba(18,21,23,.62)` | `rgba(8,10,11,.66)` | text over photography |
+| Token | Value | Use |
+|---|---|---|
+| `--ground` | `#f1f2ef` render plaster | page |
+| `--surface` | `#fafaf8` | enquiry aside, dossier panel, inputs, discovery strip, sheets |
+| `--sunk` | `#e5e7e3` | image placeholders, unknown-status tag |
+| `--ink` | `#1b2023` anodised aluminium | text, ink buttons, sheet borders, field focus ring |
+| `--ink-2` | `#384045` | body copy |
+| `--muted` | `#586165` | meta, labels, notes (≥5:1 on all grounds) |
+| `--line` | `#cfd3ce` | section rules (decorative) |
+| `--line-strong` | `#7b837f` | control borders (≥3:1) |
+| `--brick` | `#a1421f` face-brick | **the only accent**: primary CTA, focus ring on buttons and links, selected location, feature markers, highlight rule, error text |
+| `--scrim` | `rgba(18,21,23,.62)` | text over photography |
 
-Theme follows `prefers-color-scheme`. There is one deliberate colour block per page: the ink closing band on home and About.
+**One light palette, no automatic dark mode (typography pass).** The site is an art-directed brand presentation, so it no longer follows `prefers-color-scheme`: `color-scheme: light`, `<meta name="color-scheme" content="light">` and a single `theme-color`. All text pairs meet WCAG AA on the light ground (ink 14.6:1, muted 5.6:1). The brick accent was reviewed against Bodoni and kept at `#a1421f`: side-by-side renders at `#94391a` and `#873316` were barely different or drifted to brown oxblood (a luxury cliché), and contrast is already 5.6:1 on the ground (6.1:1 for plaster text on brick buttons). There is one deliberate colour block per page: the ink closing band on home and About.
 
 ## Type
 
-- **Archivo** (variable, self-hosted, `wdth 62–125`, `wght 100–900`) for everything. The width axis is the signature: display at `font-stretch: 116–118%`, headings 104–112%, buttons 108%, body 100%.
-- **IBM Plex Mono** 400/500 is reserved for **figures and technical particulars**: spec rows (beds/baths/garages/m²), market counts and price ranges, the dated FX line, form field labels, small uppercase `.label`s, references and the gallery counter. It is never used for place names, attribution, editorial copy or breadcrumbs (`.meta`, `.card__place` and `.crumbs` are sans since the polish pass).
-- Scale: display `clamp(2.25rem, …, 4.25rem)` (hero `…3.3rem`), h2 `clamp(1.65rem, …, 2.6rem)`, h3 1.2–1.4rem, body 1.0625rem/1.6, meta .9rem sans, figures (`.fig`) .8125rem mono.
-- Prices: Archivo 600 at 110% width, tabular lining numerals, rand grouped with non-breaking spaces (`R15 862 500`).
-- Sentence case everywhere. Uppercase is reserved for small mono `.label`s (Pictured, Asking price, Marketed by, footer column heads).
-- Deviation, recorded on purpose: the home hero headline sets as three short expanded lines at desktop, not two. It fits the first viewport with its CTA at every tested width; compressing it to two lines meant dropping the expanded width that carries the identity.
+Three families, each with one job. All are self-hosted latin subsets (no runtime Google Fonts request), and Bodoni and Manrope are preloaded.
+
+- **Bodoni Moda** (variable, `wght` limited to 400–600 with fontTools, `opsz` 6–96; 40 KB) is the **editorial voice**: hero headline, page titles, section `h2`s, property titles (page and cards), the dossier title, market and city names, the home statement, the property standfirst, the results count, sheet titles and the wordmark. Weight 500 for headings and 400 for editorial statements. No italics.
+  - **Optical size is held at 30** for large settings (`font-variation-settings: "opsz" 30` on `.display`, `.h2`, statement, dossier title, markets, standfirst…). The opsz 96 display cut has hairline serifs that read as a fashion magazine and thin out on phones; opsz 30 keeps the Didone contrast with sturdier, architectural hairlines. Settings of 24px and below (card titles) use automatic optical sizing.
+  - Bodoni is **not** used for filters, buttons, body copy, specifications, prices, agent details or anything below about 22px. The location picker rows are Manrope for this reason.
+- **Manrope** (variable 400–600; 23 KB) for everything functional: navigation, body, descriptions, buttons, forms, filters, strip values, prices, specs, contact details, chips and the `.h3` sub-heading.
+  - Prices: Manrope 600, tabular lining numerals, rand grouped with spaces (`R15 862 500`), letter-spacing −0.015 to −0.025em at large sizes.
+  - Body 1rem/1.62; `.body-copy` 1.03rem; `.lede` 1.08–1.25rem.
+- **IBM Plex Mono 500** only (the 400 file was removed) for small technical particulars: `.label` micro-labels (Pictured, Asking price, Marketed by, Featured residence, footer heads), the particulars-sheet keys, discovery-strip keys (Location, Price, Bedrooms, Property type), the unconfirmed status tag, the gallery counters and the dated FX line. Minimum 0.7rem (11.2px). Never used for headings, prose, prices, place names, buttons or long labels.
+- Scale: display `clamp(2.5rem, …, 4.85rem)` (hero `…4.4rem`, max 12ch), page title `…4.3rem`, h2 `clamp(1.9rem, …, 3.05rem)`, detail/prose h2 1.5–1.85rem, card title 1.5rem/1.3, `.h3` Manrope 600 1.1–1.25rem.
+- Sentence case everywhere. Uppercase is reserved for the small mono labels and the picker's province rows.
+
+## Wordmark
+
+A typographic lockup, no graphic device: **"Luxury Homes"** in Bodoni Moda 500 over **"of South Africa"** in Manrope 600 capitals (0.49em, 0.13em tracking, ≥11px in the nav), led by a short 1.5px face-brick rule: the one owned detail, the same device as the hero's issue line. Everything is sized in em of `.wordmark`'s font-size (1.42rem in the nav and menu, 2.1rem in the footer), so the lockup scales as one; the row gap clears the descender of the "y". The nav stays 64px. The favicon is "LH" drawn from Bodoni Moda outlines (extracted with fontTools, so it needs no webfont) in plaster on ink. Its accessible name is "Luxury Homes of South Africa, home", so the visible text is contained in the name (WCAG 2.5.3). The boxed mono "SA" tile of the Archivo concept is retired.
 
 ## Geometry
 
 - Radius **0** everywhere: buttons, inputs, cards, images, lightbox controls.
 - Rules, not boxes: sections are separated by 1px `--line` top rules. Filled `--surface` areas are limited to the enquiry aside, the homepage dossier band, the Collaborate CTA panel and the Contact agent panel.
-- Cards are **unboxed**: image, sans place line, title, price and a mono spec row.
+- Cards are **unboxed**: image, small Manrope place line, Bodoni title, Manrope 600 price and a Manrope spec row.
 
 ## Layout
 
@@ -48,7 +57,7 @@ Theme follows `prefers-color-scheme`. There is one deliberate colour block per p
 ## Layout additions (polish pass)
 
 - **Home:** hero → curated five (7/5 lead + stacked pair, then 8/4 wide and narrow at different aspect ratios) → positioning statement with real figures (homes for sale, provinces, asking-price range) → **dossier spread** on the surface tone (main image, two supporting frames chosen by eye, particulars panel) → **Explore markets** → collaborate band → closing buyer CTA.
-- **Explore markets** is generated from inventory: every city with two or more homes for sale, ordered by count. The image is the highest-priced home there with a full gallery, avoiding images already used above. Tiles show the province, the market name (expanded Archivo), the count and price range in mono, and the estates. Layout: 7/5, 5/7, then four at 3 columns.
+- **Explore markets** is generated from inventory: every city with two or more homes for sale, ordered by count. The image is the highest-priced home there with a full gallery, avoiding images already used above. Tiles show the province, the market name (Bodoni), the count (Manrope 600) and price range, and the estates. Layout: 7/5, 5/7, then four at 3 columns.
 - **Property page, first viewport:** gallery → place line → title → asking price → spec strip; the aside holds attribution, one primary CTA plus one secondary (Call the agent, or Message on Instagram), and contact lines with copy email. Then the editorial introduction (lede and body, sans), a desktop photo sequence (4 frames, 7/5 alternating, with "View all N photographs"), features, film, financials, location, enquiry, and the **Listing information** disclosure (source, mandate note, Instagram dates).
 - **Content pages:** `split` (text plus photograph), `pillars` (3 columns under a rule), `gallery-pair` (7/5), `steps` (3 columns with 2px ink top rules), `cta-panel` (surface), `audiences` (buyer form 7 / agent panel 5 on surface).
 
@@ -68,6 +77,18 @@ Theme follows `prefers-color-scheme`. There is one deliberate colour block per p
 - **Sticky enquiry bar** (<900px): price, place and Enquire. Shown only when the aside is off screen and the form is not.
 - **Icons**: Phosphor regular, inlined at build time, 1.15em (18px in buttons).
 
+## Discovery (typography pass)
+
+- **Structured location picker** (`public/js/location.js`, markup from `locPicker()` in `scripts/build.mjs`). The options are generated at build time from `data/properties.json` by `locationTree()` in `scripts/site/lib.mjs`: province → city → district → estate or suburb, each with its home count. A district level (Sandton, Atlantic Seaboard, Midstream, Waterfall) appears only where an area sits inside one city that has several areas, and groups two or more places. Regional areas that span cities (Garden Route, Ekurhuleni, North Coast, Cape Winelands) never nest under a city. There are two trees, current inventory and all inventory, and the picker shows the one matching the availability state, with a scope line ("Homes currently for sale"). When other filters are active (price, bedrooms, type, bathrooms, garages, features, keyword), counts are recomputed against them, locations with no match are left out (the selected one stays) and the scope line adds "matching your other filters". Nothing with zero homes is ever offered.
+  - Semantics: a trigger button (`aria-haspopup="dialog"`) opens a dialog holding a `listbox`; options take roving focus (Arrow keys, Home/End, PageUp/PageDown, Enter/Space), typing jumps to **Find a location**, which filters the known locations only ("No current homes in that location."), and Escape or the close button restores focus to the trigger. A click outside closes without stealing focus.
+  - Visual: an "All South Africa" row, then Manrope rows indented 18px per level: province in small capitals, city 600, district 600, estate or suburb regular. Right-aligned tabular counts. Selected option has a brick inset rule; focused option an ink inset rule.
+- **Discovery strip** (`.strip`): one ruled bar of labelled cells with a mono key over a Manrope value. Collection: Location, Price (popover with the typed min/max and log slider), Bedrooms, Property type (native selects dressed as cells), More filters (with a brick count badge) and Show N homes (ink). Sticky under the nav on desktop, with `scroll-padding-top` so focused elements are never hidden behind it. Below 900px it becomes a two-column grid (Location full width). Home: Location, Price band, Bedrooms and a brick **Find a home**, placed directly below the hero under the Bodoni line "Search N homes".
+- **Sheets** (`.sheet`): one dialog pattern for the location picker, price and More filters. Anchored popovers with a 1px ink border (no drop shadow) on desktop; More filters is a right side sheet over a scrim; on phones all become full-screen sheets (price is a bottom sheet) with 44px+ rows, internal scroll, body scroll lock, focus trap and focus restore (`window.lhPop` in `site.js`).
+- **Keyword field**: "Property, agent or reference" searches title, development, agent and listing reference only. Location words are not searched; older `?q=<exact location>` links are converted to the structured location.
+- **Phones**: the collection's first photograph sits within the first viewport (lede and spacing tightened); property breadcrumbs drop Home and province so they stay on one line.
+- **Zero results**: the Show button reads "No matches", and the empty state names the one filter whose removal brings back the most homes, with a "Remove …" button, alongside "Include to be confirmed" where relevant.
+- **Focus**: buttons and links keep the brick ring; fields take an ink ring, because brick is also the error colour.
+
 ## Motion
 
 A 16px rise plus fade on `.reveal` sections (0.7s, `cubic-bezier(.2,.7,.2,1)`), gated on JS (`html.js`) and `prefers-reduced-motion: no-preference`. The hero photograph settles from 1.04 scale. Card images scale 1.025 on hover. Nothing loops and nothing autoplays.
@@ -81,4 +102,4 @@ Factual, confident and brief. Ownership vocabulary: asking price, for sale, arra
 
 ## Explicitly not Exclusive Cape Town
 
-Light ground (not navy), no gold, no Fraunces or Jost, no pills, no wide-tracked uppercase nav, no "N° 0x" numbering, no manifesto, no map, no full-bleed hero with search.
+Light ground (not navy), no gold, no Fraunces or Jost (Bodoni Moda at opsz 30 plus Manrope, square geometry), no pills, no wide-tracked uppercase nav, no "N° 0x" numbering, no manifesto, no map, no full-bleed hero with search (the search strip sits below the split hero). Also not Durban Luxe: no bronze or warm metallic; the accent stays face-brick.

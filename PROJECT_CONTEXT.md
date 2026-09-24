@@ -58,7 +58,7 @@ Instagram originals are capped at 1080 px wide, so the design never displays pho
 
 ## Design philosophy
 
-"Particulars": architectural sales particulars presented as an editorial publication. Light render-plaster ground, anodised-aluminium ink, a single face-brick accent, Archivo (variable width) with IBM Plex Mono for figures, square geometry. The photography carries all the colour. The copy is about ownership (asking price, arrange a viewing, request details), never stays. Details are in `DESIGN.md`.
+"Particulars": architectural sales particulars presented as an editorial publication. Light render-plaster ground, anodised-aluminium ink, a single face-brick accent, Bodoni Moda for the editorial voice with Manrope for everything functional and IBM Plex Mono only for small technical labels, square geometry. The photography carries all the colour. The copy is about ownership (asking price, arrange a viewing, request details), never stays. Details are in `DESIGN.md`.
 
 ### How Exclusive Cape Town was used without copying it
 
@@ -67,8 +67,8 @@ Only its principles were taken: curation over portal density, large photography,
 | Exclusive Cape Town | Luxury Homes of SA |
 |---|---|
 | Dark ink/navy + cream + gold | Light plaster ground, charcoal ink, face-brick accent |
-| Fraunces + Jost | Archivo variable + IBM Plex Mono |
-| Full-bleed cinematic hero with search bar | Asymmetric split hero with a "Pictured" particulars block (location, specs, asking price) |
+| Fraunces + Jost | Bodoni Moda (held at opsz 30) + Manrope, IBM Plex Mono for micro-labels |
+| Full-bleed cinematic hero with search bar | Asymmetric split hero with a "Pictured" particulars block (location, specs, asking price); a restrained search strip sits below the hero, never over it |
 | Pill buttons, wide-tracked uppercase labels, "N° 02" numbered sections | Square buttons, sentence case, no section numbering |
 | Manifesto section, Leaflet map | Factual statement with real figures, data-driven "Explore markets" photo tiles plus a typographic location register |
 | Rentals, guests, "stay" | Asking price, dated multi-currency line, viewings, bond illustration |
@@ -93,6 +93,21 @@ A design, UX and copy pass on the existing build. The dataset, status rules, pro
   - Property: a five-frame mosaic, and the first viewport answers what, where, how much, the specs and who markets it. The editorial introduction is separated from the particulars. A desktop photo sequence replaces the repeated all-photos grid, so mobile has only one gallery.
   - About, Collaborate and Contact: editorial, image-led pages. Contact splits buyers from agents.
   - Mono type is reduced to figures, labels and references.
+
+## Typography and discovery pass
+
+A targeted refinement of the polish pass. The dataset, status rules (only confirmed homes by default), provenance, agent attribution, prices, the price-range system, URL/Back/Forward behaviour, validation and proposal mode are unchanged. No re-scrape.
+
+- **Typography.** Archivo is retired. Bodoni Moda (weights 400–600, optical size held at 30 for large settings so the hairlines stay architectural rather than fashion) carries the hero, page and section headings, property titles, the dossier, market and city names, the home statement and the property standfirst. Manrope carries navigation, body, buttons, forms, filters, prices, specs and contact details. IBM Plex Mono is cut to one weight (500) and limited to small labels, strip keys, the status tag, gallery counters and the dated FX line. All fonts are self-hosted and trimmed with fontTools. Font payload is 40 KB + 23 KB + 15 KB against the previous 90 KB + 15 KB + 15 KB.
+- **Wordmark.** "Luxury Homes / of South Africa": Bodoni Moda over Manrope capitals led by a short face-brick rule, scaled as one em-based lockup in the nav, menu and footer. The boxed "SA" tile is retired. The favicon is "LH" drawn from Bodoni outlines.
+- **No automatic dark mode.** One art-directed light palette regardless of the OS setting (a brand decision; all pairs meet WCAG AA). The brick accent was compared at two deeper values and kept.
+- **Structured location discovery.** `locationTree()` in `scripts/site/lib.mjs` builds province → city → district → estate/suburb from `data/properties.json`, with counts, for current inventory and for all inventory. Districts are derived, not hard-coded: an area becomes a level only when it lies inside one city that has several areas (Sandton, Atlantic Seaboard, Midstream, Waterfall), so regions that span or contain cities (Garden Route, Ekurhuleni, North Coast) never nest under a city. `scripts/validate.mjs` fails the build if an estate/suburb name sits under two cities, which would make a count disagree with its results.
+- **One location state.** The URL holds exactly one of `province`, `city`, `area` or `place` (estate or suburb). `estate=`/`suburb=` are accepted as aliases, and older `?q=<exact location name>` links convert to the structured form. The Province and City selects and the free-text location search were removed; the keyword field is now "Property, agent or reference" (title, development, agent, listing reference).
+- **Availability-aware.** The picker offers current locations by default ("Homes currently for sale"); with "Include availability to be confirmed" it switches to the all-inventory tree and says so. With other filters active, counts follow them and locations with no matching home drop out, so a location choice never produces an empty result. Property types follow the same scope.
+- **Discovery strip.** Collection: Location, Price (popover with the existing typed range and slider), Bedrooms, Property type, More filters (availability, bathrooms, garages, features) and Show N homes. Home: Location, Price band (only bands holding current homes), Bedrooms and Find a home, placed below the hero; it submits to `/properties/` with query parameters.
+- **Locations page.** The register is the same tree: every province, city, district and estate/suburb links straight into the collection, with counts of current homes only. Locations that exist only in unconfirmed inventory sit in a secondary "Availability to be confirmed" block linking with `avail=all`.
+- **Zero results.** The empty state names the single filter whose removal brings back the most homes, with a one-step "Remove …" button.
+- **Tests.** `npm test` runs Playwright regression tests (`tests/`, served by `tests/serve.mjs` at the Pages base path) for the picker, homepage search, discovery strip, locations page, retained systems, and typography and layout at 375–1920. Run `npm run build` first.
 
 ## Known limitations
 

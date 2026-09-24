@@ -29,6 +29,49 @@ export const fmtDate = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString(
 export const place = (p) => [p.estate || p.suburb, p.city].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).join(", ");
 export const placeShort = (p) => p.estate || p.suburb || p.city;
 
+// ---- structured locations, generated from inventory ----
+// Province → city → (district) → estate or suburb. Every node carries the number of homes in `list`,
+// so a location is only offered when it has at least one home. The client filters with the same keys:
+// province, city, area (district name) and place (estate || suburb, see placeKey).
+// An `area` is used as a level only when it is a district *inside* a city, derived from the whole
+// dataset (`all`): every home with that area is in the same city, and that city has homes in two or more
+// areas. Regional areas that span or contain cities (Garden Route, Ekurhuleni, North Coast) never
+// become a child of a city. A district node is shown when it groups two or more named places.
+export const placeKey = (p) => p.estate || p.suburb || null;
+export function districts(all) {
+  const cities = {}, areaCities = {};
+  for (const p of all) {
+    if (!p.area) continue;
+    (cities[p.city] ??= new Set()).add(p.area);
+    (areaCities[p.area] ??= new Set()).add(p.city);
+  }
+  return new Set(Object.keys(areaCities).filter((a) => areaCities[a].size === 1 && !cities[a] && cities[[...areaCities[a]][0]].size >= 2 && a !== [...areaCities[a]][0]));
+}
+export function locationTree(list, all = list) {
+  const D = districts(all);
+  const by = (arr, f) => {
+    const m = new Map();
+    for (const x of arr) { const k = f(x); if (k) (m.get(k) ?? m.set(k, []).get(k)).push(x); }
+    return [...m].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+  };
+  const places = (arr, skip) => by(arr, (p) => (skip.includes(placeKey(p)) ? null : placeKey(p))).map(([v, xs]) => ({ k: "place", v, n: xs.length }));
+  return by(list, (p) => p.province).map(([pv, ps]) => ({
+    k: "province", v: pv, n: ps.length,
+    kids: by(ps, (p) => p.city).map(([c, cs]) => {
+      const areas = by(cs, (p) => (D.has(p.area) ? p.area : null))
+        .filter(([a, as]) => new Set(as.map(placeKey).filter((k) => k && k !== a && k !== c)).size >= 2);
+      const grouped = new Set(areas.map(([a]) => a));
+      const kids = [
+        ...areas.map(([a, as]) => ({ k: "area", v: a, n: as.length, kids: places(as, [c, a]) })),
+        ...places(cs.filter((p) => !grouped.has(p.area)), [c]),
+      ].sort((x, y) => y.n - x.n || x.v.localeCompare(y.v));
+      return { k: "city", v: c, n: cs.length, kids };
+    }),
+  }));
+}
+export const LOC_KEYS = ["province", "city", "area", "place"];
+export const locHref = (node, extra = "") => u(`properties/?${node.k}=${encodeURIComponent(node.v).replace(/%20/g, "+")}${extra}`);
+
 // ---- copy-to-clipboard for email addresses (people without a configured mail app) ----
 export const copyEmail = (email) =>
   `<button class="copy" type="button" data-copy="${email}" aria-label="Copy email address ${email}"><span data-copy-label>Copy email</span></button>`;
@@ -81,6 +124,10 @@ export function card(p, media, { sizes = "(min-width: 1024px) 30vw, (min-width: 
 </article>`;
 }
 
+// ---- wordmark: typographic lockup, no graphic device ----
+export const wordmark = (tag = "a", attrs = "") =>
+  `<${tag} class="wordmark"${tag === "a" ? ` href="${u("")}"` : ""}${attrs}><span class="wordmark__main">Luxury Homes</span><span class="wordmark__sub">of South Africa</span></${tag}>`;
+
 // ---- layout ----
 const NAV = [
   ["properties/", "Properties"],
@@ -107,9 +154,10 @@ ${cfg.PROPOSAL_MODE ? '<meta name="robots" content="noindex, nofollow">\n' : ""}
 <meta property="og:title" content="${esc(full)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${abs(path)}">
-${og ? `<meta property="og:image" content="${og}">\n` : ""}<meta name="theme-color" content="#f1f2ef" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#121517" media="(prefers-color-scheme: dark)">
-<link rel="preload" href="${u("fonts/archivo-var-latin.woff2")}" as="font" type="font/woff2" crossorigin>
+${og ? `<meta property="og:image" content="${og}">\n` : ""}<meta name="theme-color" content="#f1f2ef">
+<meta name="color-scheme" content="light">
+<link rel="preload" href="${u("fonts/bodonimoda-var-latin.woff2")}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${u("fonts/manrope-var-latin.woff2")}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${u("css/site.css")}">
 <link rel="icon" href="${u("favicon.svg")}" type="image/svg+xml">
 ${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n` : ""}</head>
@@ -117,14 +165,14 @@ ${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script
 <a class="skip" href="#main">Skip to content</a>
 <header class="nav">
   <div class="wrap nav__in">
-    <a class="wordmark" href="${u("")}" aria-label="${esc(cfg.SITE_NAME)}, home">Luxury Homes of <span class="wordmark__sa">SA</span></a>
+    ${wordmark("a", ` aria-label="Luxury Homes of South Africa, home"`)}
     <nav aria-label="Primary"><ul class="nav__links">${nav}</ul></nav>
     <a class="btn btn--ink nav__cta" href="${u("contact/")}">Enquire</a>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mnav" data-menu-open>${icon("list", "Open menu")}</button>
   </div>
 </header>
 <div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Menu" hidden>
-  <div class="mnav__top"><span class="wordmark">Luxury Homes of <span class="wordmark__sa">SA</span></span><button class="iconbtn" type="button" data-menu-close>${icon("x", "Close menu")}</button></div>
+  <div class="mnav__top">${wordmark("span", ' aria-hidden="true"')}<button class="iconbtn" type="button" data-menu-close>${icon("x", "Close menu")}</button></div>
   <ul>${nav}<li><a href="${u("contact/")}">Enquire</a></li></ul>
   <p class="meta"><a class="link" href="mailto:${cfg.business.email}">${cfg.business.email}</a></p>
 </div>
@@ -135,7 +183,7 @@ ${body}
 <footer class="footer">
   <div class="wrap">
     <div class="footer__grid">
-      <div><a class="wordmark" href="${u("")}">Luxury Homes of <span class="wordmark__sa">SA</span></a><p class="note" style="margin-top:14px;max-width:34ch">A national property publication featuring notable homes for sale across South Africa.</p></div>
+      <div class="footer__brand">${wordmark("a", ` aria-label="Luxury Homes of South Africa, home"`)}<p class="note" style="margin-top:14px;max-width:34ch">A national property publication featuring notable homes for sale across South Africa.</p></div>
       <div><p class="label">Explore</p><ul><li><a href="${u("properties/")}">Properties</a></li><li><a href="${u("locations/")}">Locations</a></li></ul></div>
       <div><p class="label">Company</p><ul><li><a href="${u("about/")}">About</a></li><li><a href="${u("collaborate/")}">Collaborate</a></li><li><a href="${u("contact/")}">Enquire</a></li></ul></div>
       <div><p class="label">Contact</p><ul><li><a href="mailto:${cfg.business.email}">${cfg.business.email}</a></li><li>${copyEmail(cfg.business.email)}</li><li><a href="${cfg.business.instagramUrl}" rel="noopener">Instagram @${cfg.business.instagramHandle}</a></li></ul></div>
