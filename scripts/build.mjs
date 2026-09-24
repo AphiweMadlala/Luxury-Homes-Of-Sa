@@ -358,9 +358,6 @@ function propertyPage(p) {
     : `<div class="gallery gallery--single">${tile(0, "gallery__item--lead", "(min-width: 760px) 1080px, 100vw")}</div>`;
   const swipe = `<div class="swipe"><div class="swipe__track" data-swipe tabindex="0" role="group" aria-label="Photographs, swipe to browse">${m.images.map((_, i) => `<button class="swipe__slide" type="button" data-open="${i}" aria-label="Open photograph ${i + 1} of ${n} full screen">${picture(p, m, i, { sizes: "100vw", eager: i === 0 })}</button>`).join("")}</div>${n > 1 ? `<span class="swipe__count fig" data-swipe-count>1 / ${n}</span>` : ""}</div>`;
 
-  // ---- editorial photo sequence (desktop only; mobile already swipes every frame) ----
-  const seqIdx = n >= 9 ? [5, 6, 7, 8].filter((i) => i < n) : [];
-  const sequence = seqIdx.length ? `<div class="sequence">${seqIdx.map((i, k) => `<button class="sequence__item sequence__item--${k}" type="button" data-open="${i}" aria-label="Open photograph ${i + 1} of ${n} full screen">${picture(p, m, i, { sizes: k === 0 || k === 3 ? "(min-width: 900px) 60vw, 100vw" : "(min-width: 900px) 36vw, 100vw" })}</button>`).join("")}</div>` : "";
 
   // ---- attribution: concise, premium; the full source note lives in "Listing information" ----
   const attribution = c.kind === "lhosa"
@@ -428,8 +425,6 @@ function propertyPage(p) {
     <p class="story__lede">${esc(standfirst(p))}</p>
     ${p.description && p.description.length > 60 ? `<div class="story__body"><p class="label story__src">From the listing</p>${p.description.split(/\n{2,}/).map((para) => `<p>${esc(para.replace(/\n/g, " "))}</p>`).join("")}</div>` : ""}
   </section>
-
-  ${sequence ? `<section class="detail-section detail-section--wide" aria-label="Photographs">${sequence}<p><button class="textlink textlink--button" type="button" data-open="0">${icon("images")} View all ${n} photographs</button></p></section>` : ""}
 
   ${p.highlights.length || featureItems.length ? `<section class="detail-section" aria-labelledby="feat-h"><h2 id="feat-h">Features</h2><div>
     ${p.highlights.length ? `<ul class="highlights">${p.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>` : ""}

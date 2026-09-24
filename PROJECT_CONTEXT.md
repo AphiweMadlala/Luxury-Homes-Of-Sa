@@ -90,7 +90,7 @@ A design, UX and copy pass on the existing build. The dataset, status rules, pro
 - **Enquiry resilience.** "Copy email" (Clipboard API with a fallback and an announced confirmation) sits next to every email address. For uncredited homes, email and Instagram message are equally prominent; credited agents remain the primary contact.
 - **Visual polish.**
   - Home: a 5-card curated rhythm, a positioning statement with real figures and a 3-image dossier spread.
-  - Property: a five-frame mosaic, and the first viewport answers what, where, how much, the specs and who markets it. The editorial introduction is separated from the particulars. A desktop photo sequence replaces the repeated all-photos grid, so mobile has only one gallery.
+  - Property: a five-frame mosaic, and the first viewport answers what, where, how much, the specs and who markets it. The editorial introduction is separated from the particulars. The opening gallery is the only photography block: the later photo sequence was removed so frames are not repeated down the page; every photograph remains one tap away in the lightbox.
   - About, Collaborate and Contact: editorial, image-led pages. Contact splits buyers from agents.
   - Mono type is reduced to figures, labels and references.
 

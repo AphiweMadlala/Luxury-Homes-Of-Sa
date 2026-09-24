@@ -11,7 +11,8 @@ for (const [name, path] of PAGES) {
     const errors = [], failed = [];
     page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
     page.on("pageerror", (e) => errors.push(String(e)));
-    page.on("requestfailed", (r) => failed.push(r.url()));
+    // lazy images still loading when the test navigates to the next width are cancelled (ERR_ABORTED): not a failure
+    page.on("requestfailed", (r) => !/ERR_ABORTED/.test(r.failure()?.errorText || "") && failed.push(r.url()));
     page.on("response", (r) => r.status() >= 400 && failed.push(`${r.status()} ${r.url()}`));
     for (const w of WIDTHS) {
       await page.setViewportSize({ width: w, height: w < 800 ? 844 : 900 });
